@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restaurant El Playón | Mariscos frescos en Punta Pérula</title>
+  <meta name="description" content="Restaurant El Playón, mariscos frescos frente al mar en Punta Pérula, La Huerta, Jalisco. Abierto todos los días de 11:00 a.m. a 8:00 p.m.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐚</text></svg>">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header" id="header">
+    <div class="container header-inner">
+      <a href="#inicio" class="logo">
+        <i class="fa-solid fa-fish-fins"></i>
+        <span>Restaurant El Playón</span>
+      </a>
+
+      <nav class="main-nav" id="mainNav">
+        <ul>
+          <li><a href="#inicio" class="nav-link">Inicio</a></li>
+          <li><a href="#menu" class="nav-link">Menú</a></li>
+          <li><a href="#horario" class="nav-link">Horario</a></li>
+          <li><a href="#ubicacion" class="nav-link">Ubicación</a></li>
+          <li><a href="#contacto" class="nav-link">Contacto</a></li>
+        </ul>
+      </nav>
+
+      <button class="hamburger" id="hamburger" aria-label="Abrir menú" aria-expanded="false" aria-controls="mainNav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="hero-overlay"></div>
+    <div class="container hero-content fade-in">
+      <p class="hero-kicker"><i class="fa-solid fa-water"></i> Punta Pérula, La Huerta, Jalisco</p>
+      <h1>Sabor a mar en Punta Pérula</h1>
+      <p class="hero-subtitle">Mariscos frescos, recién salidos del mar, servidos frente a la playa. Ven a disfrutar del sazón costero que solo El Playón te puede dar.</p>
+      <a href="#menu" class="btn btn-primary">Ver el menú <i class="fa-solid fa-arrow-down"></i></a>
+    </div>
+    <div class="wave">
+      <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+        <path d="M0,64 C240,120 480,0 720,32 C960,64 1200,112 1440,64 L1440,120 L0,120 Z"></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- SOBRE NOSOTROS -->
+  <section class="about" id="nosotros">
+    <div class="container about-inner fade-in">
+      <div class="about-icon"><i class="fa-solid fa-shrimp"></i></div>
+      <h2>Un restaurante familiar frente al mar</h2>
+      <p>Somos un restaurante familiar de mariscos ubicado justo en la playa de Punta Pérula. Preparamos cada platillo con pescados y mariscos frescos del día, en un ambiente relajado y sin prisas, ideal para turistas que visitan la costa de Jalisco y para las familias locales que nos visitan siempre. Ven con los pies en la arena, la brisa del mar y buena comida &mdash; así se disfruta El Playón.</p>
+    </div>
+  </section>
+
+  <!-- HORARIO -->
+  <section class="schedule" id="horario">
+    <div class="container schedule-inner fade-in">
+      <div class="schedule-icon"><i class="fa-regular fa-clock"></i></div>
+      <h2>Horario de servicio</h2>
+      <p class="schedule-hours">Abierto todos los días: <strong>11:00 a.m. &ndash; 8:00 p.m.</strong></p>
+      <p class="schedule-note">La mayor afluencia es alrededor de las 6:00 p.m., pero normalmente no hay espera.</p>
+      <div class="status-badge" id="statusBadge">
+        <span class="status-dot"></span>
+        <span id="statusText">Consultando horario...</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section class="menu-section" id="menu">
+    <div class="container">
+      <h2 class="section-title fade-in">Nuestro Menú</h2>
+      <p class="section-subtitle fade-in">Todos los precios están expresados en pesos mexicanos (MXN)</p>
+
+      <div class="menu-search fade-in">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="menuSearch" placeholder="Busca un platillo, por ejemplo: camarón, ceviche, pulpo...">
+      </div>
+
+      <div class="menu-tabs fade-in" id="menuTabs"></div>
+
+      <div class="menu-panels" id="menuPanels"></div>
+
+      <div class="menu-search-results" id="menuSearchResults" hidden></div>
+
+      <p class="no-results" id="noResults" hidden>No se encontraron platillos con ese nombre.</p>
+    </div>
+  </section>
+
+  <!-- RESEÑAS -->
+  <section class="reviews" id="resenas">
+    <div class="container">
+      <h2 class="section-title fade-in">Lo que dicen nuestros clientes</h2>
+
+      <div class="rating-summary fade-in">
+        <span class="rating-number">4.2</span>
+        <div class="rating-stars" aria-label="Calificación 4.2 de 5 estrellas">
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star-half-stroke"></i>
+        </div>
+        <span class="rating-caption">basado en reseñas de nuestros comensales</span>
+      </div>
+
+      <div class="review-cards">
+        <article class="review-card fade-in">
+          <div class="review-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+          <p>&ldquo;El pescado zarandeado estaba increíble, se nota que todo es fresco. Comimos con los pies en la arena y una vista hermosa al mar. ¡Volveremos pronto!&rdquo;</p>
+          <span class="review-author">&mdash; Familia Ramírez</span>
+        </article>
+        <article class="review-card fade-in">
+          <div class="review-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i></div>
+          <p>&ldquo;El ceviche El Playón es una explosión de sabores. Ambiente muy relajado y el servicio fue muy amable en todo momento.&rdquo;</p>
+          <span class="review-author">&mdash; Carlos M.</span>
+        </article>
+        <article class="review-card fade-in">
+          <div class="review-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></div>
+          <p>&ldquo;Un lugar perfecto para desconectarse. Los camarones a la diabla tienen justo el picor ideal. Precios justos para la calidad que ofrecen.&rdquo;</p>
+          <span class="review-author">&mdash; Daniela V.</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- UBICACION -->
+  <section class="location" id="ubicacion">
+    <div class="container">
+      <h2 class="section-title fade-in">Ubicación</h2>
+      <div class="location-grid fade-in">
+        <div class="location-info">
+          <p><i class="fa-solid fa-location-dot"></i> Punta Pérula, La Huerta, Jalisco, C.P. 48869, México</p>
+          <p><i class="fa-solid fa-phone"></i> <a href="tel:+523151074335">315 107 4335</a></p>
+          <p><i class="fa-regular fa-clock"></i> Todos los días, 11:00 a.m. &ndash; 8:00 p.m.</p>
+          <a class="btn btn-outline" href="https://www.google.com/maps/search/?api=1&query=Punta+P%C3%A9rula+La+Huerta+Jalisco" target="_blank" rel="noopener">Cómo llegar <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        </div>
+        <div class="location-map">
+          <iframe
+            title="Mapa Restaurant El Playón, Punta Pérula"
+            src="https://www.google.com/maps?q=Punta%20P%C3%A9rula%2C%20La%20Huerta%2C%20Jalisco%2C%2048869&output=embed"
+            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO / FOOTER -->
+  <footer class="site-footer" id="contacto">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a href="#inicio" class="logo footer-logo">
+          <i class="fa-solid fa-fish-fins"></i>
+          <span>Restaurant El Playón</span>
+        </a>
+        <p>Mariscos frescos frente al mar, en el corazón de Punta Pérula.</p>
+      </div>
+
+      <div class="footer-contact">
+        <h3>Contacto</h3>
+        <p><i class="fa-solid fa-phone"></i> <a href="tel:+523151074335">315 107 4335</a></p>
+        <p><i class="fa-solid fa-envelope"></i> <a href="mailto:rayperula@hotmail.com">rayperula@hotmail.com</a></p>
+        <p><i class="fa-solid fa-location-dot"></i> Punta Pérula, La Huerta, Jalisco, C.P. 48869</p>
+      </div>
+
+      <div class="footer-social">
+        <h3>Síguenos</h3>
+        <a href="#" aria-label="Facebook de Restaurant El Playón" class="social-icon"><i class="fa-brands fa-facebook"></i></a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Restaurant El Playón. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- WHATSAPP FLOTANTE -->
+  <a href="https://wa.me/523151074335" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
