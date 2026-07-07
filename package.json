@@ -1,9 +1,0 @@
-{
-  "name": "el-playon-landing",
-  "private": true,
-  "version": "1.0.0",
-  "description": "Landing page de Restaurant El Playón con asistente de IA",
-  "engines": {
-    "node": ">=18"
-  }
-}

@@ -328,6 +328,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // Se expone para que el asistente virtual (chat.js) pueda buscar platillos
+  window.__menuFlat = flatMenu;
+
   searchInput.addEventListener('input', () => {
     const query = searchInput.value.trim().toLowerCase();
 
