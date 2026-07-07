@@ -232,6 +232,28 @@
     <i class="fa-brands fa-whatsapp"></i>
   </a>
 
+  <!-- ASISTENTE DE IA -->
+  <div class="ai-chat">
+    <button class="ai-chat-toggle" id="aiChatToggle" aria-label="Abrir asistente virtual" aria-expanded="false">
+      <i class="fa-solid fa-comment-dots"></i>
+    </button>
+
+    <div class="ai-chat-window" id="aiChatWindow" hidden>
+      <div class="ai-chat-header">
+        <span><i class="fa-solid fa-fish-fins"></i> Asistente El Playón</span>
+        <button class="ai-chat-close" id="aiChatClose" aria-label="Cerrar chat">&times;</button>
+      </div>
+      <div class="ai-chat-messages" id="aiChatMessages">
+        <div class="ai-chat-msg bot">¡Hola! 🐚 Soy el asistente de Restaurant El Playón. Pregúntame sobre el menú, precios, horario o ubicación.</div>
+      </div>
+      <form class="ai-chat-input-row" id="aiChatForm">
+        <input type="text" id="aiChatInput" placeholder="Escribe tu pregunta..." autocomplete="off" maxlength="300" aria-label="Escribe tu pregunta">
+        <button type="submit" aria-label="Enviar pregunta"><i class="fa-solid fa-paper-plane"></i></button>
+      </form>
+    </div>
+  </div>
+
   <script src="js/script.js"></script>
+  <script src="js/chat.js"></script>
 </body>
 </html>
