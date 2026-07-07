@@ -375,7 +375,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const text = document.getElementById('statusText');
     const now = new Date();
     const minutesNow = now.getHours() * 60 + now.getMinutes();
-    const openTime = 11 * 60;       // 11:00 a.m.
+    const openTime = 9 * 60;        // 9:00 a.m.
     const closeTime = 20 * 60;      // 8:00 p.m.
 
     const isOpen = minutesNow >= openTime && minutesNow < closeTime;

@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function isOpenNow() {
     const now = new Date();
     const minutesNow = now.getHours() * 60 + now.getMinutes();
-    return minutesNow >= 11 * 60 && minutesNow < 20 * 60;
+    return minutesNow >= 9 * 60 && minutesNow < 20 * 60;
   }
 
   function findMenuMatches(normText) {
@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (/\b(horario|hora|abren|cierran|abierto|cerrado)\b/.test(text)) {
       const status = isOpenNow() ? 'Ahora mismo estamos abiertos.' : 'En este momento estamos cerrados.';
-      return `Abrimos todos los días de 11:00 a.m. a 8:00 p.m. ${status} La mayor afluencia es alrededor de las 6:00 p.m., pero normalmente no hay espera.`;
+      return `Abrimos todos los días de 9:00 a.m. a 8:00 p.m. ${status} La mayor afluencia es alrededor de las 6:00 p.m., pero normalmente no hay espera.`;
     }
 
     if (/\b(ubicacion|direccion|donde estan|donde queda|como llegar|localizacion|mapa)\b/.test(text)) {
