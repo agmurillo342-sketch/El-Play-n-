@@ -129,6 +129,8 @@ button{font:inherit;color:inherit}
 .menu-item-price.no-price{color:var(--ink-2);font-size:.8rem;font-weight:500}
 .menu-prompt{text-align:center;color:var(--ink-2);padding:1.25rem 0}
 .empty{padding:24px 0;color:var(--ink-2)}
+.menu-signature-title{font-size:1.3rem;margin:8px 0 14px;color:var(--ink)}
+.menu-item.signature-item{justify-content:flex-start}
 
 /* GALLERY */
 .gallery{padding:40px 0;background:var(--sea);color:#F5E9D7}
@@ -172,13 +174,14 @@ button{font:inherit;color:inherit}
 .reservation-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 16px;align-items:end}
 .form-field{display:flex;flex-direction:column;gap:7px;min-width:0}
 .form-field label{font-family:var(--font-display);font-size:.9rem;font-weight:700;color:var(--ink)}
-.form-field input{width:100%;height:50px;border:1.5px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);font:inherit;padding:0 14px;outline:none;transition:border-color .2s ease,box-shadow .2s ease}
-.form-field input:focus{border-color:var(--sea);box-shadow:0 0 0 3px color-mix(in srgb,var(--sea) 18%,transparent)}
+.form-field input,.form-field select{width:100%;height:50px;border:1.5px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);font:inherit;padding:0 14px;outline:none;transition:border-color .2s ease,box-shadow .2s ease}
+.form-field input:focus,.form-field select:focus{border-color:var(--sea);box-shadow:0 0 0 3px color-mix(in srgb,var(--sea) 18%,transparent)}
 .form-field input::placeholder{color:var(--ink-2);opacity:1}
 .form-field-wide,.reservation-submit,.reservation-note{grid-column:1/-1}
 .reservation-submit{justify-self:start;min-width:230px}
 .reservation-note{font-size:.82rem;color:var(--ink-2);margin:0}
 .reservation-status{grid-column:1/-1;min-height:1.5em;margin:0;color:var(--tab-text);font-weight:600}
+.field-error{min-height:1.2em;margin:0;color:var(--coral-hover);font-size:.8rem;font-weight:600}
 
 /* CONTACT */
 .contact{background:var(--sea-deep);color:#fff;padding:40px 0 30px}
@@ -195,7 +198,7 @@ button{font:inherit;color:inherit}
 /* DOCK */
 .dock{position:fixed;left:0;right:0;bottom:0;z-index:50;display:grid;grid-template-columns:1fr 1.2fr 1fr;gap:6px;padding:8px 10px;padding-bottom:calc(8px + env(safe-area-inset-bottom));background:color-mix(in srgb,var(--paper) 94%,transparent);backdrop-filter:blur(12px);border-top:1px solid var(--line)}
 .dock a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:52px;border-radius:14px;text-decoration:none;font-size:.78rem;font-weight:600;color:var(--ink)}
-.dock a.dock-main{background:var(--accent-gradient);color:var(--accent-ink)}
+.dock a.active{background:var(--accent-gradient);color:var(--accent-ink);transform:scale(1.04)}
 
 /* VIEWER */
 .viewer{position:fixed;inset:0;z-index:90;background:#000;display:flex;align-items:center;justify-content:center}
@@ -226,8 +229,9 @@ button{font:inherit;color:inherit}
 .rating strong{font:700 1.45rem var(--font-display);color:var(--coral-hover)}
 
 /* VIRTUAL ASSISTANT */
-.ai-chat-toggle{position:fixed;right:18px;bottom:calc(var(--dock-h) + 18px + env(safe-area-inset-bottom));z-index:70;width:58px;height:58px;border:0;border-radius:50%;display:grid;place-items:center;background:var(--sea);color:var(--sea-ink);box-shadow:0 8px 20px rgba(0,119,168,.35);cursor:pointer;transition:transform .2s ease,box-shadow .2s ease}
+.ai-chat-toggle{position:fixed;right:18px;bottom:calc(var(--dock-h) + 18px + env(safe-area-inset-bottom));z-index:70;width:58px;height:58px;border:0;border-radius:50%;display:grid;place-items:center;background:var(--sea);color:var(--sea-ink);box-shadow:0 8px 20px rgba(0,119,168,.35);cursor:pointer;transition:transform .25s ease,box-shadow .25s ease,opacity .25s ease}
 .ai-chat-toggle:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 12px 24px rgba(0,90,128,.4)}
+.ai-chat-toggle.is-hidden{opacity:0;pointer-events:none;transform:translateY(16px) scale(.9)}
 .ai-chat-window{position:fixed;right:18px;bottom:calc(var(--dock-h) + 88px + env(safe-area-inset-bottom));z-index:71;width:min(360px,calc(100vw - 32px));height:min(480px,calc(100dvh - 150px));min-height:300px;display:flex;flex-direction:column;overflow:hidden;border:1px solid rgba(0,90,128,.16);border-radius:16px;background:#fff;box-shadow:0 18px 45px rgba(0,30,45,.28)}
 .ai-chat-window[hidden]{display:none}
 .ai-chat-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:var(--sea-deep);color:#fff;font-family:var(--font-display);font-weight:700}
@@ -328,9 +332,9 @@ button{font:inherit;color:inherit}
 .copy{opacity:1;color:#BDCFD2}
 .contact-address{opacity:1;color:#D0E1E2}
 .contact .btn-ghost-dark{border-color:#B9D9DA;color:#fff}
-.btn,.icon-btn,.lang,.dock a{transition:transform .22s ease,box-shadow .22s ease,background-position .5s ease}
-.btn-primary,.dock-main,.location-card .btn{background-size:180% 100%}
-.btn-primary:hover,.dock-main:hover,.location-card .btn:hover{background-position:100% 50%;box-shadow:0 8px 24px rgba(86,69,146,.24)}
+.btn,.icon-btn,.lang,.dock a{transition:transform .22s ease,box-shadow .22s ease,background .22s ease,color .22s ease,background-position .5s ease}
+.btn-primary,.dock a.active,.location-card .btn{background-size:180% 100%}
+.btn-primary:hover,.dock a.active:hover,.location-card .btn:hover{background-position:100% 50%;box-shadow:0 8px 24px rgba(86,69,146,.24)}
 .btn:active,.icon-btn:active,.lang:active,.dock a:active{transform:scale(.97)}
 .icon-btn svg{transition:transform .45s ease}
 [data-theme="dark"] .icon-btn svg{transform:rotate(-25deg)}
@@ -524,7 +528,7 @@ button{font:inherit;color:inherit}
         <h2 id="reservationTitle" data-i18n="reservationTitle">Planea tu visita a El Playón</h2>
         <p data-i18n="reservationIntro">Comparte los datos de tu visita y te atenderemos por WhatsApp para confirmar disponibilidad.</p>
       </div>
-      <form class="reservation-form" id="reservationForm">
+      <form class="reservation-form" id="reservationForm" novalidate>
         <div class="form-field form-field-wide">
           <label for="reservationName" data-i18n="reservationName">Nombre</label>
           <input id="reservationName" name="name" type="text" autocomplete="name" maxlength="80" required placeholder="Nombre de quien reserva" data-i18n-ph="reservationNamePh">
@@ -539,11 +543,13 @@ button{font:inherit;color:inherit}
         </div>
         <div class="form-field">
           <label for="reservationDate" data-i18n="reservationDate">Fecha</label>
-          <input id="reservationDate" name="date" type="date" required>
+          <select id="reservationDate" name="date" required aria-describedby="reservationDateError"></select>
+          <p class="field-error" id="reservationDateError" hidden></p>
         </div>
         <div class="form-field">
           <label for="reservationTime" data-i18n="reservationTime">Hora</label>
-          <input id="reservationTime" name="time" type="time" min="09:00" max="19:30" step="1800" required>
+          <select id="reservationTime" name="time" required aria-describedby="reservationTimeError"></select>
+          <p class="field-error" id="reservationTimeError" hidden></p>
         </div>
         <button class="btn btn-primary reservation-submit" type="submit" data-i18n="reservationSubmit">Solicitar reserva por WhatsApp</button>
         <p class="reservation-note" data-i18n="reservationNote">La solicitud queda sujeta a confirmación del restaurante. Horario: 9:00 a.m. a 8:00 p.m.</p>
@@ -574,7 +580,7 @@ button{font:inherit;color:inherit}
 <!-- BARRA INFERIOR FIJA -->
 <nav class="dock" aria-label="Acciones rápidas">
   <a href="#menu"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg><span data-i18n="dMenu">Menú</span></a>
-  <a href="#contacto" class="dock-main"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8v.5z"/></svg><span data-i18n="dContact">Contacto</span></a>
+  <a href="#contacto"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8v.5z"/></svg><span data-i18n="dContact">Contacto</span></a>
   <a href="#ubicacion"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg><span data-i18n="dGo">Llegar</span></a>
 </nav>
 
@@ -589,8 +595,8 @@ button{font:inherit;color:inherit}
 </div>
 
 <div class="ai-chat">
-  <button class="ai-chat-toggle" id="aiChatToggle" type="button" aria-label="Abrir asistente virtual" aria-expanded="false">
-    <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm-12 11a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm4 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm4 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/></svg>
+  <button class="ai-chat-toggle" id="aiChatToggle" type="button" aria-label="Abrir chat de WhatsApp" aria-expanded="false">
+    <svg viewBox="0 0 24 24" width="27" height="27" fill="currentColor" aria-hidden="true"><path d="M12 2a9.8 9.8 0 0 0-8.4 14.9L2.5 21.5l4.8-1.3A9.9 9.9 0 1 0 12 2Zm0 17.9a8 8 0 0 1-4.1-1.1l-.3-.2-2.8.7.8-2.7-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8.9c-.1.2-.3.2-.5.1a6.5 6.5 0 0 1-1.9-1.2 7.2 7.2 0 0 1-1.3-1.7c-.1-.2 0-.4.1-.5l.4-.5.2-.4c.1-.2 0-.4 0-.5L9.6 7c-.1-.3-.3-.3-.5-.3h-.5c-.2 0-.5.1-.7.4-.2.2-.8.8-.8 2s.8 2.4.9 2.6c.1.2 1.7 2.7 4.2 3.7.6.2 1 .4 1.4.5.6.2 1.2.2 1.6.1.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2-.1-.1-.2-.2-.5-.3Z"/></svg>
   </button>
   <section class="ai-chat-window" id="aiChatWindow" aria-label="Asistente virtual" hidden>
     <div class="ai-chat-header">
@@ -618,12 +624,12 @@ button{font:inherit;color:inherit}
 
   /* ---------- TEXTOS ---------- */
   const T = {
-    es: {},
+    es: { signatureTitle:'Nuestros platillos principales' },
     en: {
       skip:'Skip to menu', heroPlace:'La Huerta, Jalisco', h1:'El Playón', heroSub:'Fresh seafood, straight from the sea and served by the beach. Come enjoy the coastal flavor only El Playón can offer.',
       ctaWa:'Contact us on WhatsApp', ctaMenu:'See menu', t1:'Right on the beach', t2:'Fresh seafood', t3:'Punta Pérula', t4:'Coastal flavor',
       menuEyebrow:'Menu', menuTitle:'From the sea to your table', feat1Label:'A taste of our menu', feat2Label:'A taste of our menu', feat3Label:'A taste of our menu', spicy:'Spicy',
-      searchPh:'Search: shrimp, octopus…', empty:"We couldn't find that dish. Try another word or ask us on WhatsApp.",
+      searchPh:'Search: shrimp, octopus…', empty:"We couldn't find that dish. Try another word or ask us on WhatsApp.", signatureTitle:'Our signature dishes',
       galEyebrow:'Our dishes', galTitle:'A taste of what awaits', g0:'Fried fish', g1:'Seafood ajillo', g2:'Gratin shrimp', g3:'Breaded fillet', g4:'Stuffed crab', g5:'Aguachile',
       storyEyebrow:'About us', storyTitle:'A family restaurant by the sea',
       story1:'We are a family seafood restaurant right on Punta Pérula beach. We prepare every dish with fresh fish and seafood in a relaxed, easygoing atmosphere for visitors to the Jalisco coast and local families alike.',
@@ -651,11 +657,13 @@ button{font:inherit;color:inherit}
     es: { open:'Abierto ahora · cierra 8:00 pm', closing:'Cierra pronto · 8:00 pm', closed:'Cerrado · abre a las 9:00 am', all:'Todo',
           raw:'Crudo', hot:'Picante', gf:'Sin gluten', veg:'Vegetariano', share:'Para compartir', quick:'Listo en 15 min',
           ask:'Preguntar disponibilidad', dishes:'platillos', market:'Consultar precio',
-          waHello:'Hola El Playón, me gustaría recibir información.', waAsk:'Hola El Playón, ¿me pueden dar información sobre: ' },
+          waHello:'Hola El Playón, me gustaría recibir información.', waAsk:'Hola El Playón, ¿me pueden dar información sobre: ',
+          today:'Hoy', tomorrow:'Mañana', selectTime:'Selecciona la hora', dateRequired:'Selecciona una fecha', timeRequired:'Selecciona una hora' },
     en: { open:'Open now · closes 8:00 pm', closing:'Closing soon · 8:00 pm', closed:'Closed · opens 9:00 am', all:'All',
           raw:'Raw', hot:'Spicy', gf:'Gluten-free', veg:'Vegetarian', share:'To share', quick:'Ready in 15 min',
           ask:'Ask about availability', dishes:'dishes', market:'Ask for price',
-          waHello:'Hi El Playón, I would like more information.', waAsk:'Hi El Playón, can you tell me about: ' }
+          waHello:'Hi El Playón, I would like more information.', waAsk:'Hi El Playón, can you tell me about: ',
+          today:'Today', tomorrow:'Tomorrow', selectTime:'Select a time', dateRequired:'Select a date', timeRequired:'Select a time' }
   };
   const u = k => UI[lang][k];
 
@@ -877,6 +885,9 @@ button{font:inherit;color:inherit}
         .map(({item}) => item);
     });
   }
+  function signatureItems(){
+    return $$('#galStrip .gal-item span').map(caption => ({ name: caption.textContent.trim() }));
+  }
   function renderMenu(){
     const tabs = $('#menuTabs');
     const list = $('#menuList');
@@ -917,21 +928,22 @@ button{font:inherit;color:inherit}
     const section = MENU_SECTIONS.find(category => category.id===selectedCategory);
     list.innerHTML = section
       ? `<div class="menu-panel active" id="menuPanel" role="region" aria-label="${lang==='es'?section.cat[0]:section.cat[1]}"><div class="menu-grid">${sectionItems(section).map(item => menuItemMarkup({name:lang==='es'?item[0]:item[1],price:item[2]})).join('')}</div></div>`
-      : `<p class="menu-prompt">${lang==='es'?'Elige una sección para consultar sus platillos.':'Choose a section to see its dishes.'}</p>`;
+      : `<section class="menu-signature" aria-labelledby="signatureTitle"><h2 class="menu-signature-title" id="signatureTitle">${t('signatureTitle')}</h2><div class="menu-grid">${signatureItems().map(item => menuItemMarkup(item,false)).join('')}</div></section>`;
     empty.hidden = true;
     if (window.observeReveals) window.observeReveals(list);
   }
-  function menuItemMarkup(item){
+  function menuItemMarkup(item, showPrice = true){
     const name = item.name.replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
-    return `<article class="menu-item"><span class="menu-item-name">${name}</span><span class="menu-item-price${item.price==null?' no-price':''}">${item.price==null?(lang==='es'?'Precio en barra':'Ask in bar'):`$${item.price} MXN`}</span></article>`;
+    const price = showPrice ? `<span class="menu-item-price${item.price==null?' no-price':''}">${item.price==null?(lang==='es'?'Precio en barra':'Ask in bar'):`$${item.price} MXN`}</span>` : '';
+    return `<article class="menu-item${showPrice?'':' signature-item'}"><span class="menu-item-name">${name}</span>${price}</article>`;
   }
   const menuTabs = $('#menuTabs');
   menuTabs.addEventListener('click', e => {
     const button = e.target.closest('.menu-tab-btn');
     if (!button) return;
-    selectedCategory = button.dataset.category;
+    selectedCategory = selectedCategory === button.dataset.category ? null : button.dataset.category;
     renderMenu();
-    menuTabs.querySelector(`[data-category="${selectedCategory}"]`).focus({preventScroll:true});
+    menuTabs.querySelector(`[data-category="${button.dataset.category}"]`).focus({preventScroll:true});
   });
   $('#q').addEventListener('input', e => { query = e.target.value; renderMenu(); });
 
@@ -1034,22 +1046,102 @@ button{font:inherit;color:inherit}
   /* ---------- RESERVAS ---------- */
   const reservationForm = $('#reservationForm');
   const reservationDate = $('#reservationDate');
+  const reservationTime = $('#reservationTime');
   const reservationStatus = $('#reservationStatus');
+  const reservationDateError = $('#reservationDateError');
+  const reservationTimeError = $('#reservationTimeError');
   function todayMx(){
     const parts = new Intl.DateTimeFormat('en-US',{timeZone:TZ,year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());
     const part = type => parts.find(item => item.type===type).value;
     return `${part('year')}-${part('month')}-${part('day')}`;
   }
-  reservationDate.min = todayMx();
+  function dateFromKey(value){ return new Date(`${value}T12:00:00Z`); }
+  function dateKey(date){ return date.toISOString().slice(0,10); }
+  function reservationDayLabel(date, offset){
+    if (offset===0) return u('today');
+    if (offset===1) return u('tomorrow');
+    return new Intl.DateTimeFormat(lang==='es'?'es-MX':'en-US',{weekday:'short',day:'numeric',month:'short',timeZone:'UTC'}).format(date);
+  }
+  function reservationTimeLabel(minutes){
+    const date = new Date(Date.UTC(2000,0,1,Math.floor(minutes/60),minutes%60));
+    return new Intl.DateTimeFormat(lang==='es'?'es-MX':'en-US',{hour:'numeric',minute:'2-digit',hour12:true,timeZone:'UTC'}).format(date);
+  }
+  function clearReservationError(field, error){
+    field.removeAttribute('aria-invalid');
+    error.textContent = '';
+    error.hidden = true;
+  }
+  function setReservationError(field, error, message){
+    field.setAttribute('aria-invalid','true');
+    error.textContent = message;
+    error.hidden = false;
+  }
+  function populateReservationTimes(preferredTime = ''){
+    const selectedDate = reservationDate.value;
+    const now = nowMx();
+    const today = todayMx();
+    const firstTime = 9*60;
+    const lastTime = 19*60+30;
+    let startTime = firstTime;
+    if (selectedDate===today) startTime = Math.max(firstTime,Math.ceil((now.h*60+now.m)/30)*30);
+    if (startTime > lastTime) {
+      const tomorrow = dateFromKey(today);
+      tomorrow.setUTCDate(tomorrow.getUTCDate()+1);
+      reservationDate.value = dateKey(tomorrow);
+      return populateReservationTimes(preferredTime);
+    }
+    const options = [`<option value="" disabled>${u('selectTime')}</option>`];
+    for (let minutes=startTime; minutes<=lastTime; minutes+=30) {
+      const value = `${String(Math.floor(minutes/60)).padStart(2,'0')}:${String(minutes%60).padStart(2,'0')}`;
+      options.push(`<option value="${value}">${reservationTimeLabel(minutes)}</option>`);
+    }
+    reservationTime.innerHTML = options.join('');
+    reservationTime.value = [...reservationTime.options].some(option => option.value===preferredTime) ? preferredTime : '';
+  }
+  function populateReservationDates(preferredDate = reservationDate.value, preferredTime = reservationTime.value){
+    const today = dateFromKey(todayMx());
+    const options = [];
+    for (let offset=0; offset<14; offset++) {
+      const date = new Date(today);
+      date.setUTCDate(today.getUTCDate()+offset);
+      const value = dateKey(date);
+      options.push(`<option value="${value}">${reservationDayLabel(date,offset)}</option>`);
+    }
+    reservationDate.innerHTML = options.join('');
+    reservationDate.value = [...reservationDate.options].some(option => option.value===preferredDate) ? preferredDate : dateKey(today);
+    populateReservationTimes(preferredTime);
+  }
+  populateReservationDates();
+  reservationDate.addEventListener('change',() => {
+    clearReservationError(reservationDate,reservationDateError);
+    clearReservationError(reservationTime,reservationTimeError);
+    reservationStatus.textContent = '';
+    populateReservationTimes();
+  });
+  reservationTime.addEventListener('change',() => clearReservationError(reservationTime,reservationTimeError));
   reservationForm.addEventListener('input',() => { reservationStatus.textContent = ''; });
   reservationForm.addEventListener('submit',event => {
     event.preventDefault();
+    const missingDate = !reservationDate.value;
+    const missingTime = !reservationTime.value;
+    if (missingDate) setReservationError(reservationDate,reservationDateError,u('dateRequired'));
+    else clearReservationError(reservationDate,reservationDateError);
+    if (missingTime) setReservationError(reservationTime,reservationTimeError,u('timeRequired'));
+    else clearReservationError(reservationTime,reservationTimeError);
+    if (missingDate || missingTime) {
+      (missingDate ? reservationDate : reservationTime).focus();
+      return;
+    }
+    if (!reservationForm.checkValidity()) {
+      reservationForm.reportValidity();
+      return;
+    }
     const fields = new FormData(reservationForm);
-    const rawDate = fields.get('date');
-    const visitDate = new Intl.DateTimeFormat(lang==='es'?'es-MX':'en-US',{dateStyle:'long',timeZone:'UTC'}).format(new Date(`${rawDate}T12:00:00Z`));
+    const visitDate = reservationDate.selectedOptions[0].textContent;
+    const visitTime = reservationTime.selectedOptions[0].textContent;
     const message = lang==='es'
-      ? `Hola El Playón, quisiera solicitar una reserva.\n\nNombre: ${fields.get('name')}\nContacto: ${fields.get('contact')}\nPersonas: ${fields.get('guests')}\nFecha: ${visitDate}\nHora: ${fields.get('time')}\n\n¿Me pueden confirmar disponibilidad?`
-      : `Hi El Playón, I would like to request a reservation.\n\nName: ${fields.get('name')}\nContact: ${fields.get('contact')}\nGuests: ${fields.get('guests')}\nDate: ${visitDate}\nTime: ${fields.get('time')}\n\nCould you please confirm availability?`;
+      ? `Hola El Playón, quisiera solicitar una reserva.\n\nNombre: ${fields.get('name')}\nContacto: ${fields.get('contact')}\nPersonas: ${fields.get('guests')}\nFecha: ${visitDate}\nHora: ${visitTime}\n\n¿Me pueden confirmar disponibilidad?`
+      : `Hi El Playón, I would like to request a reservation.\n\nName: ${fields.get('name')}\nContact: ${fields.get('contact')}\nGuests: ${fields.get('guests')}\nDate: ${visitDate}\nTime: ${visitTime}\n\nCould you please confirm availability?`;
     const reservationLink = waLink(message);
     reservationStatus.textContent = lang==='es' ? 'Abriendo WhatsApp para enviar tu solicitud…' : 'Opening WhatsApp to send your request…';
     const popup = window.open('about:blank','_blank');
@@ -1060,6 +1152,15 @@ button{font:inherit;color:inherit}
       window.location.href = reservationLink;
     }
   });
+
+  const reservationObserver = new IntersectionObserver(entries => {
+    const reservationVisible = entries.some(entry => entry.isIntersecting);
+    chatToggle.classList.toggle('is-hidden',reservationVisible);
+    chatToggle.setAttribute('aria-hidden',String(reservationVisible));
+    chatToggle.tabIndex = reservationVisible ? -1 : 0;
+    if (reservationVisible && !chatWindow.hidden) setChatOpen(false);
+  }, { threshold: 0.18 });
+  reservationObserver.observe($('#reservas'));
 
   /* ---------- ESTADO ABIERTO/CERRADO ---------- */
   function nowMx(){
@@ -1105,7 +1206,7 @@ button{font:inherit;color:inherit}
     $$('[data-i18n-ph]').forEach(el => { el.placeholder = t(el.dataset.i18nPh); });
     $('#langBtn').textContent = lang==='es' ? 'EN' : 'ES';
     $('#langBtn').setAttribute('aria-label', lang==='es' ? 'Change language to English' : 'Cambiar idioma a español');
-    $('#aiChatToggle').setAttribute('aria-label',lang==='es'?'Abrir asistente virtual':'Open virtual assistant');
+    $('#aiChatToggle').setAttribute('aria-label',lang==='es'?'Abrir chat de WhatsApp':'Open WhatsApp chat');
     $('#aiChatWindow').setAttribute('aria-label',lang==='es'?'Asistente virtual':'Virtual assistant');
     $('#aiChatClose').setAttribute('aria-label',lang==='es'?'Cerrar asistente':'Close assistant');
     $('#aiChatForm button').setAttribute('aria-label',lang==='es'?'Enviar pregunta':'Send question');
@@ -1113,6 +1214,9 @@ button{font:inherit;color:inherit}
     $('#aiChatInput').placeholder = lang==='es'?'Escribe tu pregunta...':'Type your question...';
     $('#locationMap').title = lang==='es'?'Mapa interactivo de Restaurante El Playón':'Interactive map of El Playón Restaurant';
     reservationStatus.textContent = '';
+    clearReservationError(reservationDate,reservationDateError);
+    clearReservationError(reservationTime,reservationTimeError);
+    populateReservationDates(reservationDate.value,reservationTime.value);
     $('.ai-chat-header span').textContent = lang==='es'?'Asistente El Playón':'El Playón Assistant';
     if (chatMessages.children.length===1){
       chatMessages.firstElementChild.textContent = lang==='es'
@@ -1149,6 +1253,17 @@ button{font:inherit;color:inherit}
     try { localStorage.setItem('playon-theme',theme); } catch {}
   };
   setTheme();
+
+  const dockLinks = $$('.dock a');
+  function setDockActive(activeLink){
+    dockLinks.forEach(link => {
+      const active = link === activeLink;
+      link.classList.toggle('active',active);
+      if (active) link.setAttribute('aria-current','page');
+      else link.removeAttribute('aria-current');
+    });
+  }
+  dockLinks.forEach(link => link.addEventListener('click',() => setDockActive(link)));
 
   /* ---------- TOPBAR SÓLIDA AL HACER SCROLL ---------- */
   const bar = $('.topbar');
