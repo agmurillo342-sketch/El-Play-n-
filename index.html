@@ -157,9 +157,28 @@ button{font:inherit;color:inherit}
 
 /* LOCATION */
 .location{padding-top:40px;padding-bottom:40px}
-.location-card{display:grid;gap:14px;justify-items:start;padding:24px 0;border-top:1px solid var(--line);color:var(--ink)}
+.location-layout{display:grid;gap:20px;margin-top:24px}
+.location-card{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:14px;padding:24px 0;border-top:1px solid var(--line);color:var(--ink)}
 .location-card p{margin:0}
-.location-card .btn{width:100%;background:var(--accent-gradient);color:var(--accent-ink)}
+.location-card .btn{background:var(--accent-gradient);color:var(--accent-ink)}
+.mini-map{min-height:340px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--sand-2);box-shadow:0 12px 32px rgba(8,65,68,.1)}
+.mini-map iframe{display:block;width:100%;height:100%;min-height:340px;border:0}
+
+/* RESERVATIONS */
+.reservation{padding:64px 0;background:var(--sand-2)}
+.reservation-layout{display:grid;gap:32px}
+.reservation-copy{max-width:34rem}
+.reservation-copy p:last-child{color:var(--ink-2)}
+.reservation-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 16px;align-items:end}
+.form-field{display:flex;flex-direction:column;gap:7px;min-width:0}
+.form-field label{font-family:var(--font-display);font-size:.9rem;font-weight:700;color:var(--ink)}
+.form-field input{width:100%;height:50px;border:1.5px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);font:inherit;padding:0 14px;outline:none;transition:border-color .2s ease,box-shadow .2s ease}
+.form-field input:focus{border-color:var(--sea);box-shadow:0 0 0 3px color-mix(in srgb,var(--sea) 18%,transparent)}
+.form-field input::placeholder{color:var(--ink-2);opacity:1}
+.form-field-wide,.reservation-submit,.reservation-note{grid-column:1/-1}
+.reservation-submit{justify-self:start;min-width:230px}
+.reservation-note{font-size:.82rem;color:var(--ink-2);margin:0}
+.reservation-status{grid-column:1/-1;min-height:1.5em;margin:0;color:var(--tab-text);font-weight:600}
 
 /* CONTACT */
 .contact{background:var(--sea-deep);color:#fff;padding:40px 0 30px}
@@ -331,9 +350,8 @@ button{font:inherit;color:inherit}
   .reveal.in.feat:hover,.reveal.in.rev:hover{transform:translateY(-4px)}
 }
 @media (min-width:760px){
-  .location-card{grid-template-columns:1fr auto;align-items:center;column-gap:32px}
-  .location-card h2,.location-card p{grid-column:1}
-  .location-card .btn{grid-column:2;grid-row:1/4}
+  .location-layout{grid-template-columns:minmax(240px,.75fr) minmax(0,1.4fr);align-items:stretch}
+  .reservation-layout{grid-template-columns:minmax(230px,.75fr) minmax(0,1.25fr);align-items:start}
 }
 @media (max-width:759px){
   h2{font-size:2rem}
@@ -343,7 +361,7 @@ button{font:inherit;color:inherit}
   .hero-shade{background:linear-gradient(90deg,rgba(8,29,33,.87),rgba(8,29,33,.4)),linear-gradient(0deg,rgba(8,29,33,.6),transparent 70%)}
   .hero-sub{font-size:1rem}
   .hero-place{display:table}
-  .menu,.story,.location{padding-top:40px;padding-bottom:40px}
+  .menu,.story,.location,.reservation{padding-top:40px;padding-bottom:40px}
   .trust{justify-content:flex-start;gap:16px}
   .trust li+li{padding-left:16px}
   .featured{margin-left:-24px;margin-right:-24px;padding-left:24px;padding-right:24px}
@@ -351,6 +369,7 @@ button{font:inherit;color:inherit}
   .menu-tab-btn{flex-shrink:0}
   .topbar{padding-left:14px;padding-right:14px}
   .ai-chat-window{height:min(480px,calc(100dvh - 244px))}
+  .location-card .btn,.reservation-submit{width:100%}
 }
 @media (max-width:380px){
   .hero h1{font-size:2.75rem}
@@ -360,6 +379,8 @@ button{font:inherit;color:inherit}
   .menu-item-price{margin-left:auto}
   .btn{padding:10px 14px;font-size:.95rem}
   .contact-btns{grid-template-columns:1fr}
+  .reservation-form{grid-template-columns:1fr}
+  .form-field-wide,.reservation-submit,.reservation-note,.reservation-status{grid-column:1}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
@@ -373,6 +394,7 @@ button{font:inherit;color:inherit}
   "name": "Restaurante El Playón",
   "servesCuisine": ["Mariscos", "Mexicana"],
   "priceRange": "$$",
+  "acceptsReservations": true,
   "telephone": "+52 315 107 4335",
   "hasMenu": "#menu",
   "address": {"@type": "PostalAddress", "addressLocality": "Punta Pérula", "addressRegion": "Jalisco", "postalCode": "48869", "addressCountry": "MX"},
@@ -483,9 +505,50 @@ button{font:inherit;color:inherit}
   <section id="ubicacion" class="location wrap" data-bg="#FFFFFF" aria-labelledby="locTitle">
     <p class="eyebrow" data-i18n="locEyebrow">Cómo llegar</p>
     <h2 id="locTitle" data-i18n="locTitle">Punta Pérula, Jalisco</h2>
-    <div class="location-card">
-      <p data-i18n="address">Punta Pérula, La Huerta, Jalisco, C.P. 48869, México</p>
-      <a class="btn btn-primary" href="https://www.google.com/maps/search/?api=1&query=Restaurant+El+Play%C3%B3n+Punta+P%C3%A9rula+La+Huerta+Jalisco+48869" target="_blank" rel="noopener" data-i18n="mapCta">Abrir ubicación en Google Maps</a>
+    <div class="location-layout">
+      <div class="location-card">
+        <p data-i18n="address">Punta Pérula, La Huerta, Jalisco, C.P. 48869, México</p>
+        <a class="btn btn-primary" href="https://www.google.com/maps/search/?api=1&query=Restaurant+El+Play%C3%B3n+Punta+P%C3%A9rula+La+Huerta+Jalisco+48869" target="_blank" rel="noopener" data-i18n="mapCta">Abrir ubicación en Google Maps</a>
+      </div>
+      <div class="mini-map">
+        <iframe id="locationMap" src="https://www.google.com/maps?q=Restaurant+El+Play%C3%B3n+Punta+P%C3%A9rula+La+Huerta+Jalisco+48869&amp;output=embed" title="Mapa interactivo de Restaurante El Playón" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESERVAS -->
+  <section id="reservas" class="reservation" data-bg="#E1F0EE" aria-labelledby="reservationTitle">
+    <div class="wrap reservation-layout">
+      <div class="reservation-copy">
+        <p class="eyebrow" data-i18n="reservationEyebrow">Reserva tu mesa</p>
+        <h2 id="reservationTitle" data-i18n="reservationTitle">Planea tu visita a El Playón</h2>
+        <p data-i18n="reservationIntro">Comparte los datos de tu visita y te atenderemos por WhatsApp para confirmar disponibilidad.</p>
+      </div>
+      <form class="reservation-form" id="reservationForm">
+        <div class="form-field form-field-wide">
+          <label for="reservationName" data-i18n="reservationName">Nombre</label>
+          <input id="reservationName" name="name" type="text" autocomplete="name" maxlength="80" required placeholder="Nombre de quien reserva" data-i18n-ph="reservationNamePh">
+        </div>
+        <div class="form-field form-field-wide">
+          <label for="reservationContact" data-i18n="reservationContact">Número de contacto</label>
+          <input id="reservationContact" name="contact" type="tel" autocomplete="tel" inputmode="tel" minlength="7" maxlength="20" required placeholder="Ej. 315 123 4567" data-i18n-ph="reservationContactPh">
+        </div>
+        <div class="form-field">
+          <label for="reservationGuests" data-i18n="reservationGuests">Número de personas</label>
+          <input id="reservationGuests" name="guests" type="number" min="1" max="30" step="1" required placeholder="2" data-i18n-ph="reservationGuestsPh">
+        </div>
+        <div class="form-field">
+          <label for="reservationDate" data-i18n="reservationDate">Fecha</label>
+          <input id="reservationDate" name="date" type="date" required>
+        </div>
+        <div class="form-field">
+          <label for="reservationTime" data-i18n="reservationTime">Hora</label>
+          <input id="reservationTime" name="time" type="time" min="09:00" max="19:30" step="1800" required>
+        </div>
+        <button class="btn btn-primary reservation-submit" type="submit" data-i18n="reservationSubmit">Solicitar reserva por WhatsApp</button>
+        <p class="reservation-note" data-i18n="reservationNote">La solicitud queda sujeta a confirmación del restaurante. Horario: 9:00 a.m. a 8:00 p.m.</p>
+        <p class="reservation-status" id="reservationStatus" role="status" aria-live="polite"></p>
+      </form>
     </div>
   </section>
 
@@ -571,6 +634,10 @@ button{font:inherit;color:inherit}
       r3:'"A perfect place to unwind. The shrimp a la diabla has just the right kick. Fair prices for the quality."',
       revNote:'Average rating', revNoteSuffix:', based on reviews from our guests.',
       locEyebrow:'Getting here', locTitle:'Punta Pérula, Jalisco', address:'Punta Pérula, La Huerta, Jalisco, ZIP 48869, Mexico', mapCta:'Open in Google Maps',
+      reservationEyebrow:'Reserve your table', reservationTitle:'Plan your visit to El Playón', reservationIntro:'Share your visit details and we will reply on WhatsApp to confirm availability.',
+      reservationName:'Name', reservationNamePh:'Name for the reservation', reservationContact:'Contact number', reservationContactPh:'E.g. 315 123 4567',
+      reservationGuests:'Number of guests', reservationGuestsPh:'2', reservationDate:'Date', reservationTime:'Time', reservationSubmit:'Request reservation on WhatsApp',
+      reservationNote:'Requests are subject to confirmation by the restaurant. Hours: 9:00 a.m. to 8:00 p.m.',
       ctTitle:'Hours & contact', hDays:'Every day', hKitchen:'Busiest around', email:'Email', call:'Call',
       dMenu:'Menu', dContact:'Contact', dGo:'Directions'
     }
@@ -915,8 +982,8 @@ button{font:inherit;color:inherit}
     }
     if (/\b(reserva|reservacion|apartar mesa|reservation|reserve|booking)\b/.test(text)){
       return lang==='es'
-        ? 'No manejamos reservaciones por este chat. Para preguntar por disponibilidad, llámanos al 315 107 4335.'
-        : 'We do not take reservations through this chat. Call +52 315 107 4335 to ask about availability.';
+        ? 'Puedes llenar el formulario de la sección "Reserva tu mesa". Enviaremos tu solicitud por WhatsApp para confirmar disponibilidad.'
+        : 'Fill out the form in the "Reserve your table" section. Your request will be sent through WhatsApp to confirm availability.';
     }
     const words = text.split(/\s+/).filter(word => word.length >= 4);
     const matches = (window.__menuFlat || []).filter(item => words.some(word => normalizeChat(item.name).includes(word))).slice(0,5);
@@ -963,6 +1030,36 @@ button{font:inherit;color:inherit}
   const waLink = msg => `https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;
   function waDefault(){ return u('waHello'); }
   function setWaLinks(){ ['#heroWa','#ctWa'].forEach(s => $(s).href = waLink(waDefault())); }
+
+  /* ---------- RESERVAS ---------- */
+  const reservationForm = $('#reservationForm');
+  const reservationDate = $('#reservationDate');
+  const reservationStatus = $('#reservationStatus');
+  function todayMx(){
+    const parts = new Intl.DateTimeFormat('en-US',{timeZone:TZ,year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());
+    const part = type => parts.find(item => item.type===type).value;
+    return `${part('year')}-${part('month')}-${part('day')}`;
+  }
+  reservationDate.min = todayMx();
+  reservationForm.addEventListener('input',() => { reservationStatus.textContent = ''; });
+  reservationForm.addEventListener('submit',event => {
+    event.preventDefault();
+    const fields = new FormData(reservationForm);
+    const rawDate = fields.get('date');
+    const visitDate = new Intl.DateTimeFormat(lang==='es'?'es-MX':'en-US',{dateStyle:'long',timeZone:'UTC'}).format(new Date(`${rawDate}T12:00:00Z`));
+    const message = lang==='es'
+      ? `Hola El Playón, quisiera solicitar una reserva.\n\nNombre: ${fields.get('name')}\nContacto: ${fields.get('contact')}\nPersonas: ${fields.get('guests')}\nFecha: ${visitDate}\nHora: ${fields.get('time')}\n\n¿Me pueden confirmar disponibilidad?`
+      : `Hi El Playón, I would like to request a reservation.\n\nName: ${fields.get('name')}\nContact: ${fields.get('contact')}\nGuests: ${fields.get('guests')}\nDate: ${visitDate}\nTime: ${fields.get('time')}\n\nCould you please confirm availability?`;
+    const reservationLink = waLink(message);
+    reservationStatus.textContent = lang==='es' ? 'Abriendo WhatsApp para enviar tu solicitud…' : 'Opening WhatsApp to send your request…';
+    const popup = window.open('about:blank','_blank');
+    if (popup) {
+      popup.opener = null;
+      popup.location.href = reservationLink;
+    } else {
+      window.location.href = reservationLink;
+    }
+  });
 
   /* ---------- ESTADO ABIERTO/CERRADO ---------- */
   function nowMx(){
@@ -1014,6 +1111,8 @@ button{font:inherit;color:inherit}
     $('#aiChatForm button').setAttribute('aria-label',lang==='es'?'Enviar pregunta':'Send question');
     $('#aiChatInput').setAttribute('aria-label',lang==='es'?'Escribe tu pregunta':'Type your question');
     $('#aiChatInput').placeholder = lang==='es'?'Escribe tu pregunta...':'Type your question...';
+    $('#locationMap').title = lang==='es'?'Mapa interactivo de Restaurante El Playón':'Interactive map of El Playón Restaurant';
+    reservationStatus.textContent = '';
     $('.ai-chat-header span').textContent = lang==='es'?'Asistente El Playón':'El Playón Assistant';
     if (chatMessages.children.length===1){
       chatMessages.firstElementChild.textContent = lang==='es'
@@ -1099,7 +1198,7 @@ button{font:inherit;color:inherit}
 
   /* ---------- SCROLL-REVEAL CON STAGGER ---------- */
   const revealSelector = 'h2, .feat, .menu-item, .gal-item, .story > div > p, ' +
-    '.rev, .location-card, .hours';
+    '.rev, .location-card, .mini-map, .reservation-copy, .reservation-form, .hours';
   document.querySelectorAll(revealSelector).forEach(el => el.classList.add('reveal'));
 
   [['.featured', 80], ['.gal-strip', 70], ['.rev-strip', 80]].forEach(([sel, step]) => {
