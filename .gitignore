@@ -1,0 +1,4 @@
+# Generated resource packs and build evidence.
+/dist/
+# Optional local RenderDragon research; never ship extracted game materials.
+/work-materials/
