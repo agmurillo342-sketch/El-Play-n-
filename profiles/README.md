@@ -1,9 +1,10 @@
 # Perfiles de rendimiento
 
-Fase 1: `bajo.json`, `medio.json` y `alto.json` contienen exclusivamente `{}`.
+Fase 2: `bajo.json`, `medio.json` y `alto.json` siguen conteniendo exclusivamente `{}`.
 Son reservas para herramientas del proyecto, **no formatos de Minecraft**.
 No se incluyen en el `.mcpack`, no se aplican y aún no existe un selector.
 El validador rechaza perfiles con valores para impedir ajustes silenciosamente ignorados.
+El ajuste diurno común está en `tools/day-settings.psd1`; aún no es un perfil de rendimiento.
 
 | Parámetro previsto | Unidad / significado | Implementación pendiente |
 | --- | --- | --- |

@@ -2,18 +2,18 @@
   "format_version": 2,
   "header": {
     "name": "Cristal Boreal",
-    "description": "Fase 1: estructura base para Vibrant Visuals. Sin efectos personalizados todavia.",
+    "description": "Fase 2: dia calido, sol circular con aura y sombras suaves para Vibrant Visuals.",
     "uuid": "7bbfb86b-c078-4739-9b33-c2f95403f6cc",
-    "version": [0, 1, 0],
-    "min_engine_version": [1, 21, 120],
+    "version": [0, 2, 0],
+    "min_engine_version": [1, 26, 50],
     "pack_scope": "world"
   },
   "modules": [
     {
-      "description": "Recursos de Cristal Boreal; base de la fase 1.",
+      "description": "Recursos de Cristal Boreal; iluminacion diurna de la fase 2.",
       "type": "resources",
       "uuid": "43b0a611-3f49-48c2-9336-ae1612baf932",
-      "version": [0, 1, 0]
+      "version": [0, 2, 0]
     }
   ],
   "capabilities": ["pbr"]

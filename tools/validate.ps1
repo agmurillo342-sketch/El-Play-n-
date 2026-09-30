@@ -1,10 +1,10 @@
 #requires -Version 7.4
 <#
 .SYNOPSIS
-Valida JSON estricto y el contrato local de la fase 1. No ejecuta Minecraft.
+Valida JSON estricto y el contrato local de la fase 2. No ejecuta Minecraft.
 .DESCRIPTION
 El contrato es deliberadamente limitado al contenido implementado. No sustituye
-al cargador ni valida esquemas futuros de iluminacion, atmosfera o texturas PBR.
+al cargador ni a los esquemas oficiales completos de Minecraft.
 #>
 [CmdletBinding()]
 param(
@@ -76,7 +76,7 @@ $requiredDirectories = @(
     'pack/materials', 'pack/lighting', 'pack/atmospherics', 'pack/color_grading',
     'pack/local_lighting', 'pack/pbr', 'pack/textures/blocks',
     'pack/textures/environment', 'pack/textures/entity', 'pack/textures/items',
-    'pack/textures/particle', 'profiles', 'tools'
+    'pack/textures/particle', 'pack/biomes', 'pack/shadows', 'profiles', 'tools'
 )
 foreach ($directory in $requiredDirectories) {
     Assert-Valid (Test-Path -LiteralPath (Join-Path $Root $directory) -PathType Container) "Falta carpeta: $directory"
@@ -101,8 +101,8 @@ foreach ($key in @('name', 'description')) {
 }
 Assert-Version $manifest.header.version 'header.version'
 Assert-Version $manifest.header.min_engine_version 'header.min_engine_version'
-# Minimo documentado para la capacidad pbr; no es una certificacion de versiones.
-Assert-Valid ([version]($manifest.header.min_engine_version -join '.') -ge [version]'1.21.120') 'pbr requiere min_engine_version >= 1.21.120.'
+# El bioma dappled_forest fuente usa 1.26.50; no es una certificacion del hotfix.
+Assert-Valid ([version]($manifest.header.min_engine_version -join '.') -ge [version]'1.26.50') 'Los biomas fuente de fase 2 requieren min_engine_version >= 1.26.50.'
 Assert-Valid ($manifest.header.pack_scope -eq 'world') 'El pack de prueba se activa por mundo.'
 Assert-Valid ($manifest.capabilities -is [array] -and $manifest.capabilities.Count -eq 1 -and $manifest.capabilities[0] -ceq 'pbr') 'Se requiere capabilities: ["pbr"].'
 Assert-Valid ($manifest.modules -is [array] -and $manifest.modules.Count -eq 1) 'Se requiere un modulo de recursos.'
@@ -122,23 +122,26 @@ Assert-Valid (@($profileFiles | Where-Object Extension -EQ '.json').Count -eq 3)
 foreach ($profile in $profileNames) {
     $profilePath = Join-Path $Root "profiles/$profile.json"
     Assert-Valid ($parsed.ContainsKey($profilePath)) "Falta perfil: $profile"
-    Assert-Valid ($parsed[$profilePath] -is [Collections.IDictionary] -and $parsed[$profilePath].Count -eq 0) "El perfil $profile debe estar vacio en fase 1."
+    Assert-Valid ($parsed[$profilePath] -is [Collections.IDictionary] -and $parsed[$profilePath].Count -eq 0) "El perfil $profile debe estar vacio hasta implementar perfiles en fase 6."
 }
 
-# La fase 1 solo publica estos dos archivos; las reservas .gitkeep no se envian.
+# Lista de recursos implementados; las reservas .gitkeep no se envian.
 $packageFiles = @($packFiles | Where-Object Name -NE '.gitkeep')
-$expectedEntries = @('manifest.json', 'pack_icon.png')
-Assert-Valid ($packageFiles.Count -eq $expectedEntries.Count) 'La fase 1 solo empaqueta manifest.json y pack_icon.png.'
+. (Join-Path $PSScriptRoot 'validate-day.ps1')
+$expectedEntries = @(Test-DayAssets $parsed $Root $packPath)
+Assert-Valid ($packageFiles.Count -eq $expectedEntries.Count) 'Hay archivos adicionales o faltantes fuera del contrato de fase 2.'
 foreach ($entryName in $expectedEntries) {
     Assert-Valid (Test-Path -LiteralPath (Join-Path $packPath $entryName) -PathType Leaf) "Falta $entryName"
 }
-$icon = [IO.File]::ReadAllBytes((Join-Path $packPath 'pack_icon.png'))
-Assert-Valid ($icon.Length -ge 33) 'El icono PNG esta incompleto.'
-Assert-Valid ([Convert]::ToHexString($icon[0..7]) -eq '89504E470D0A1A0A') 'Firma PNG invalida.'
-Assert-Valid ([Text.Encoding]::ASCII.GetString($icon, 12, 4) -eq 'IHDR') 'Cabecera PNG invalida.'
-# 256 x 256, big-endian. Es una decision del proyecto, no un requisito del motor.
-Assert-Valid ([Convert]::ToHexString($icon[16..23]) -eq '0000010000000100') 'El icono debe medir 256 x 256.'
-Write-Host "Validacion estatica OK: $($jsonFiles.Count) JSON; manifest v2; 3 perfiles vacios; cabecera PNG 256x256."
+foreach ($pngPath in @('pack_icon.png','textures/environment/sun_vv.png')) {
+    $icon = [IO.File]::ReadAllBytes((Join-Path $packPath $pngPath))
+    Assert-Valid ($icon.Length -ge 33) "PNG incompleto: $pngPath"
+    Assert-Valid ([Convert]::ToHexString($icon[0..7]) -eq '89504E470D0A1A0A') "Firma PNG invalida: $pngPath"
+    Assert-Valid ([Text.Encoding]::ASCII.GetString($icon, 12, 4) -eq 'IHDR') "Cabecera PNG invalida: $pngPath"
+    # 256 x 256, big-endian. Decision del proyecto, no requisito del motor.
+    Assert-Valid ([Convert]::ToHexString($icon[16..23]) -eq '0000010000000100') "PNG debe medir 256 x 256: $pngPath"
+}
+Write-Host "Validacion estatica OK: $($jsonFiles.Count) JSON; manifest v2; 3 perfiles vacios; 2 cabeceras PNG 256x256."
 if ($PassThru) {
     [pscustomobject]@{ Manifest = $manifest; PackPath = $packPath; Files = $packageFiles; JsonCount = $jsonFiles.Count }
 }

@@ -1,9 +1,10 @@
 # Cristal Boreal — Minecraft Bedrock
 
 Resource pack orientado a **Vibrant Visuals**, con iluminación realista y una
-dirección artística de cristal. Estado: **fase 1, versión del pack 0.1.0**.
-Esta entrega contiene estructura, manifest, icono, validación y empaquetado.
-Todavía no incorpora cambios de iluminación, cielo, emisores ni materiales PBR.
+dirección artística de cristal. Estado: **fase 2, versión del pack 0.2.0**.
+Esta entrega configura sombras suaves, luz solar cálida, sol circular con halo y
+atmósfera diurna en los 83 biomas del Overworld incluidos en la referencia oficial.
+La noche artística, los emisores personalizados y los materiales de cristal siguen pendientes.
 El icono es una ilustración geométrica original, no una captura del resultado.
 
 El repositorio Git está en `C:\PROYECTOS\el-playn\El-Play-n`; también contiene un
@@ -13,15 +14,17 @@ sitio web preexistente. Las rutas relativas siguientes parten de ese repositorio
 
 El objetivo solicitado es **Minecraft Bedrock 1.26.52.3 en Android**.
 Mojang publicó [Bedrock 26.52 el 25 de septiembre de 2026][release]; esa nota no
-confirma el sufijo Android `.3`. No se ha abierto Minecraft ni se ha probado la
-importación en esa compilación. Registrar la versión real en [TESTING.md](TESTING.md).
+confirma el sufijo Android `.3`. El usuario confirmó que la fase 1 funciona correctamente;
+no proporcionó datos de hardware ni un registro por prueba. La fase 2 aún requiere
+validación en juego. El agente no ha abierto Minecraft. Ver [TESTING.md](TESTING.md).
 
 Se usa [manifest v2][manifest], un módulo `resources`, UUID distintos y estables,
-y `capabilities: ["pbr"]`. `min_engine_version: [1,21,120]` es el mínimo documentado
-para [packs de Vibrant Visuals][vv-pack]. No es la versión objetivo ni una promesa
-de compatibilidad con todas las versiones posteriores. El campo tiene tres
+y `capabilities: ["pbr"]`. El mínimo general para [packs de Vibrant Visuals][vv-pack]
+es `[1,21,120]`; en fase 2 se eleva a **`[1,26,50]`**, porque las muestras de Dappled
+Forest usan el esquema de bioma `1.26.50`. No certifica una compilación. El campo tiene tres
 componentes: no se introduce un cuarto número ni se transforma `26.52` en `[26,52,3]`.
-Al añadir funciones de esquemas más recientes se revisará el mínimo necesario.
+Las referencias proceden de [Mojang/bedrock-samples v1.26.50.4][samples], la base
+estable publicada consultada; no son una extracción de la compilación Android del usuario.
 
 La capacidad `pbr` permite identificar el pack; no activa por sí sola un modo gráfico
 en una GPU incompatible. Se requiere un Android compatible con Vibrant Visuals;
@@ -36,19 +39,29 @@ pack/
   manifest.json
   pack_icon.png                 # 256 x 256
   materials/                    # Reserva; sin binarios ni contrato de carga
-  lighting/                     # Configuración de luz futura
-  atmospherics/                 # Atmósfera futura
+  CREDITS.txt                   # Procedencia de las configuraciones adaptadas
+  biomes/                       # 83 enlaces explícitos; demás componentes conservados
+  lighting/                     # 13 variantes diurnas
+  atmospherics/                 # 11 variantes diurnas
+  shadows/global.json           # soft_shadows
   color_grading/                # Ajustes de color futuros
   local_lighting/               # Emisores futuros
   pbr/                          # Valores PBR futuros
   textures/
-    blocks/ environment/ entity/ items/ particle/
+    environment/sun_vv.png      # Sol circular RGBA, 256 x 256
+    blocks/ entity/ items/ particle/ # Reservas
 profiles/
   bajo.json medio.json alto.json # Objetos vacíos, sin efecto
   README.md
 tools/
-  validate.ps1                  # JSON estricto + contrato de fase 1
+  validate.ps1                  # JSON estricto + manifest + archivos del pack
+  validate-day.ps1              # Esquemas usados, enlaces y regresión nocturna
   build.ps1                     # ZIP .mcpack + SHA-256
+  generate-day.ps1              # Genera JSON y sol desde referencias locales
+  day-settings.psd1             # Constantes artísticas comentadas, fuera del pack
+  lib/day.ps1                   # Interpolación y generación de datos
+  reference/                    # Snapshot y procedencia; no se distribuyen en el mcpack
+  fetch-day-reference.ps1       # Descarga opcional; no se usa durante el build
   create-icon.ps1               # Regeneración opcional del icono en Windows
 README.md
 TESTING.md
@@ -74,16 +87,20 @@ pwsh -NoProfile -File .\tools\build.ps1
 
 El build ejecuta primero el validador. Crea:
 
-- `dist/cristal-boreal-0.1.0.mcpack`
-- `dist/cristal-boreal-0.1.0.mcpack.sha256`
+- `dist/cristal-boreal-0.2.0.mcpack`
+- `dist/cristal-boreal-0.2.0.mcpack.sha256`
 
-Se validan los cuatro JSON actuales: sintaxis estricta UTF-8, ausencia de comentarios,
-comas finales y claves duplicadas; campos previstos del manifest, versiones y UUID;
-perfiles vacíos y cabecera/dimensiones del PNG. Es un **contrato local de fase 1**,
-no el validador oficial completo de Bedrock. Hay que ampliarlo junto con cada fase.
-Actualmente rechaza recursos adicionales para evitar publicar efectos no implementados.
+Se validan **114 JSON**, incluidos los snapshots de herramientas: sintaxis estricta
+UTF-8, ausencia de comentarios/comas finales/claves duplicadas, manifest y UUID.
+Se comprueban los enlaces de biomas, campos de los esquemas utilizados, rangos de
+curvas, continuidad del ciclo, componentes conservados y equivalencia de curvas
+nocturnas con la referencia entre `0.32` y `0.68`. Los rangos máximos de control del
+validador son límites del proyecto, no límites oficiales del motor. También se
+revisan los perfiles vacíos y las dos cabeceras PNG. Es un **contrato local de fase 2**,
+no el validador oficial completo de Bedrock. Se rechazan archivos no contemplados.
 
-El ZIP contiene únicamente `manifest.json` y `pack_icon.png` en su raíz. El build
+El ZIP contiene **112 archivos**: manifest, icono, créditos, textura del sol y
+108 JSON de efectos/asignaciones. Las herramientas y perfiles no se incluyen. El build
 lo reabre y compara SHA-256 del contenido descomprimido con los archivos fuente.
 Publica el resultado solo tras esas comprobaciones. Orden y fechas de entradas son
 fijos; la repetibilidad se verifica con el mismo runtime. Cambiar .NET/compresión puede
@@ -108,7 +125,8 @@ Estas instrucciones son para el usuario: el agente no abre Minecraft.
 3. En el menú principal, abrir **Configuración → Vídeo → Modo gráfico → Vibrant Visuals**.
    Si aparece deshabilitado, registrar dispositivo, GPU y versión; un pack no elimina
    ese requisito. No se necesitan experimentos para esta base estable.
-4. Entrar al mundo y completar la fase 1 de [TESTING.md](TESTING.md).
+4. Entrar al mundo y completar la fase 2 de [TESTING.md](TESTING.md). Al actualizar
+   desde 0.1.0, confirmar que figure 0.2.0; se conservan los UUID para actualizar el pack.
 
 Alternativa de desarrollo documentada: copiar el contenido de `pack` a una carpeta
 propia dentro de `%appdata%\Minecraft Bedrock\users\shared\games\com.mojang\development_resource_packs`.
@@ -118,15 +136,58 @@ y [modo gráfico][vv-devices].
 
 ### Android
 
-1. Transferir `dist/cristal-boreal-0.1.0.mcpack` al teléfono, conservando la extensión.
+1. Transferir `dist/cristal-boreal-0.2.0.mcpack` al teléfono, conservando la extensión.
 2. Desde el gestor de archivos, abrirlo/compartirlo con Minecraft y comprobar la importación.
    La disponibilidad de esa asociación depende del gestor y Android; no se ha verificado aquí.
 3. Activar **Cristal Boreal** en los paquetes del mundo de prueba y seleccionar Vibrant
    Visuals en Vídeo, si está disponible. Seguir el mismo checklist.
 
-En esta fase, el resultado esperado es **pack reconocido y mundo cargable**, con el
-aspecto base del motor. Ver reflejos o sombras vanilla no demuestra que el pack añada
-efectos propios. Guardar también una captura sin el pack como referencia.
+El resultado esperado es un sol circular amarillo con halo discreto y un día
+ligeramente más cálido. Comparar siempre con la misma escena/hora/opciones sin el
+pack. Las sombras dinámicas las calcula RenderDragon: `soft_shadows` selecciona un
+estilo que ya puede estar activo por defecto, por lo que su presencia no prueba por
+sí sola un cambio del pack. El aspecto final aún no se ha verificado en el motor.
+
+## Ajustar el día (fase 2)
+
+Editar **`tools/day-settings.psd1`**, ejecutar
+`pwsh -NoProfile -File .\tools\generate-day.ps1` y luego el build. El generador requiere
+Windows por el PNG; el build utiliza los archivos generados que están versionados.
+Los JSON de `pack` son derivados: una regeneración sustituye sus cambios manuales.
+
+| Control interno | Valor inicial | Efecto previsto |
+| --- | --- | --- |
+| `SunIlluminanceGain` | 1.10 | Hasta un 10 % más de aporte solar sobre la referencia |
+| `SunColorBlend` | 0.60 | Mezcla hacia blanco cálido/amarillo según la hora |
+| `RayleighGain` | 1.04 | Ajuste moderado de dispersión atmosférica |
+| `SunMieAddition` | 0.06 | Aporte adicional al halo atmosférico diurno |
+| `SunGlareAddition` | 0.025 | Ajuste de la forma de dispersión alrededor del sol |
+| `ZenithBlend` / `HorizonBlend` | 0.20 / 0.15 | Mezcla sutil de colores de cielo, conservando el carácter del bioma |
+| `SunDiscRadius` / `SunHaloStrength` | 0.30 / 0.12 | Radio relativo al lado de la textura e intensidad de halo |
+
+Son constantes de nuestra herramienta, **no APIs del juego**. El generador emite
+solo campos documentados de [iluminación][lighting], [atmósfera][atmosphere] y
+[sombras][shadows]. Conserva la escala de luz de las muestras actuales; no aplica
+automáticamente los 100 000 lux del ejemplo didáctico a valores vanilla de 100.
+Las curvas siguen [tiempo VV][keyframes]: 0/1 mediodía, 0.25 ocaso, 0.5 medianoche y
+0.75 amanecer. Las transiciones crepusculares forman parte de este ajuste diurno.
+
+La órbita se fija en 0° en todas las variantes para mantener la dirección de la luz
+coherente con el recorrido normal del sol. Se conservan luna, ambiente, emisores y
+dispersión lunar de la referencia. Los valores nocturnos entre 0.32 y 0.68 se
+comparan numéricamente; eso no implica haber comprobado la noche visual en el juego.
+
+Las [asignaciones por bioma][biome-customization] evitan que los ajustes vanilla
+anulen los del pack. Se conservan niebla, agua, vegetación, música y los demás
+componentes fuente. Dappled Forest no trae enlaces de luz/atmósfera: se parte del
+fallback vanilla. Nether y End no reciben asignaciones diurnas. El estilo global
+de sombras suaves sí tiene alcance general. Los biomas de otros packs y los que
+aparezcan después de esta referencia requieren integración explícita.
+
+La ruta `textures/environment/sun_vv.png` está presente en las muestras de Mojang;
+el PNG del pack se genera analíticamente, sin copiar su textura. Su mezcla, tamaño
+aparente y relación con la exposición deben comprobarse en Android. El halo de
+textura y la dispersión Mie aproximan el aura; no constituyen una simulación solar completa.
 
 ## Herramientas y versiones
 
@@ -157,12 +218,13 @@ Las versiones de assembly anteriores son distintas del número de parche del run
 - [Atmósfera][atmosphere] permite colores por hora. La aproximación propuesta a la
   aurora son gradientes morados/azules; no existe aquí una implementación de cortinas
   volumétricas. El parpadeo configurable de luz tampoco está implementado.
-- Los valores globales de luz no sustituyen automáticamente los valores vanilla por
-  bioma: la fase 2 deberá resolver asignaciones por bioma según la documentación.
+- Se selecciona el estilo oficial `soft_shadows`, pero un resource pack no garantiza
+  que toda entidad/objeto arroje sombra ni fuerza la distancia o resolución del mapa
+  de sombras del cliente. Registrar los ajustes gráficos durante las pruebas.
 - Bajo, Medio y Alto son reservas. Distancia de sombras/calidad de reflejos podrían
   requerir ajustes manuales del cliente. No hay FPS objetivo ni medidas todavía.
-- Importación, aceptación por el motor, calidad visual, temperatura y consumo en
-  Android están pendientes. Un build correcto solo demuestra integridad estática.
+- La fase 1 fue aceptada por el usuario; la importación, aceptación por el motor,
+  calidad visual, temperatura y consumo de **fase 2** están pendientes.
 
 ## .material.bin: estado y flujo manual condicionado
 
@@ -213,15 +275,15 @@ Vibrant Visuals. No se distribuyen materiales extraídos ni se incluyen binarios
 
 ## Fases
 
-1. Estructura base — entrega actual; pruebas en juego pendientes.
-2. Día: sombras, sol y atmósfera — pendiente de autorización.
+1. Estructura base — completada y aceptada por el usuario.
+2. Día: sombras, sol y atmósfera — entrega actual; pruebas visuales pendientes.
 3. Noche: cielo, estrellas, luna y visibilidad — pendiente.
 4. Luces locales — pendiente.
 5. Apariencia de cristal — pendiente.
 6. Perfiles, ajuste de rendimiento y empaquetado final — pendiente.
 
 Cada fase requiere validación, build, actualización de TESTING.md y commit, y termina
-sin comenzar la siguiente. El `.mcpack` actual es una base de importación, no la entrega visual final.
+sin comenzar la siguiente. El `.mcpack` actual contiene el día; no es la entrega visual final.
 
 ## Fuentes consultadas
 
@@ -236,6 +298,10 @@ Los esquemas del juego y la sintaxis de herramientas deben revisarse al avanzar 
 [resource-pack]: https://learn.microsoft.com/en-us/minecraft/creator/documents/resourcepack?view=minecraft-bedrock-stable
 [lighting]: https://learn.microsoft.com/en-us/minecraft/creator/documents/vibrantvisuals/lightingcustomization?view=minecraft-bedrock-stable
 [atmosphere]: https://learn.microsoft.com/en-us/minecraft/creator/documents/vibrantvisuals/atmosphericscustomization?view=minecraft-bedrock-stable
+[shadows]: https://learn.microsoft.com/en-us/minecraft/creator/documents/vibrantvisuals/shadowscustomization?view=minecraft-bedrock-stable
+[keyframes]: https://learn.microsoft.com/en-us/minecraft/creator/documents/vibrantvisuals/keyframejsonsyntax?view=minecraft-bedrock-stable
+[biome-customization]: https://learn.microsoft.com/en-us/minecraft/creator/documents/vibrantvisuals/biomecustomization?view=minecraft-bedrock-stable
+[samples]: https://github.com/Mojang/bedrock-samples/releases/tag/v1.26.50.4
 [lazurite-release]: https://pypi.org/project/lazurite/0.10.0/
 [lazurite-versions]: https://veka0.github.io/lazurite/supported_versions/
 [lazurite-guide]: https://veka0.github.io/lazurite/guide/
