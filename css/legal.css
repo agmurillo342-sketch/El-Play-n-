@@ -1,0 +1,21 @@
+:root{--sand:#F0F7FA;--sand-2:#E1F0EE;--paper:#fff;--ink:#182E34;--ink-2:#496168;--line:#C6DCDD;--coral:#6550AE;--coral-hover:#51408D;--font-display:Quicksand,sans-serif;--font-body:Poppins,sans-serif;--dock-h:0px;color-scheme:light}
+[data-theme="dark"]{--sand:#141A1D;--sand-2:#1B2B2A;--paper:#20282C;--ink:#F0F7FA;--ink-2:#B9CDD0;--line:#465C62;--coral:#C4B4F4;--coral-hover:#D8CBFF;color-scheme:dark}
+*{box-sizing:border-box}[hidden]{display:none!important}
+body{margin:0;background:var(--sand);color:var(--ink);font:16px/1.7 var(--font-body)}
+a{color:inherit;text-underline-offset:3px}button{font:inherit}
+:focus-visible{outline:3px solid var(--coral-hover);outline-offset:3px}
+.legal-skip{position:absolute;left:-9999px;top:8px;padding:10px;background:var(--paper);color:var(--ink);z-index:300}.legal-skip:focus{left:8px}
+.legal-top{max-width:1080px;margin:auto;padding:20px 24px;display:flex;gap:12px;align-items:center;justify-content:space-between}
+.legal-brand{display:flex;gap:10px;align-items:center;text-decoration:none;font:700 1.25rem var(--font-display)}
+.legal-brand img{width:64px;height:48px;object-fit:contain}
+.legal-controls{display:flex;gap:8px}
+.legal-controls button{background:var(--paper);color:var(--ink);border:1px solid var(--line);min-width:44px;min-height:44px;border-radius:8px;padding:8px 12px;cursor:pointer}
+.legal-main{max-width:820px;margin:auto;padding:24px 24px 56px}
+.legal-main h1{font:700 2.25rem/1.2 var(--font-display);margin:24px 0 16px;overflow-wrap:anywhere;letter-spacing:0}
+.legal-main h2{font:700 1.3rem/1.4 var(--font-display);margin:30px 0 12px}
+.legal-main p{margin:0 0 16px}
+.legal-date{font-size:.85rem;color:var(--ink-2)}
+.legal-notice{border-left:3px solid var(--coral);padding:12px 16px;background:var(--sand-2);font-size:.9rem}
+.legal-main section{border-top:1px solid var(--line);margin-top:24px}
+.legal-main section h2{margin-top:20px}
+@media(max-width:420px){.legal-top{padding:14px 20px}.legal-brand{font-size:1rem}.legal-main{padding:20px}.legal-main h1{font-size:1.9rem}}

@@ -4,14 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Restaurante El Playón · Mariscos frente al mar en Punta Pérula, Costalegre</title>
-<meta name="description" content="Mariscos frescos frente a la playa en Punta Pérula, Jalisco. Conoce el menú de Restaurant El Playón y contáctanos por WhatsApp.">
+<meta name="description" content="Restaurante de mariscos en Punta Pérula, Jalisco. Consulta el menú, la ubicación y solicita tu reserva por WhatsApp.">
 <meta name="theme-color" content="#0E4C63">
 <meta name="google-site-verification" content="BVJ2GDyjl24sAIv0vDLXsqtiADKNOmdLuHJzcvKIfv0">
 <link rel="canonical" href="https://el-play-n.vercel.app/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230E4C63'/%3E%3Cpath d='M9 17a7 7 0 0 1 14 0' fill='%23E2603C'/%3E%3Cpath d='M6 21c2.5-2 5-2 7.5 0s5 2 7.5 0 3.5-1.4 5 0' stroke='%23F5E9D7' stroke-width='2.2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./css/fonts.css">
 <link rel="preload" as="image" href="./assets/img/platillo-pescado-frito.jpg">
 <script>
 try {
@@ -213,6 +211,9 @@ button{font:inherit;color:inherit}
 @keyframes fill{from{width:0}to{width:100%}}
 .v-cap{position:absolute;left:0;right:0;bottom:calc(24px + env(safe-area-inset-bottom));text-align:center;color:#fff;font-family:var(--font-display);font-size:1.3rem;margin:0;text-shadow:0 2px 12px rgba(0,0,0,.6);z-index:2;padding:0 20px}
 .v-close{position:absolute;top:calc(24px + env(safe-area-inset-top));right:12px;width:48px;height:48px;border-radius:24px;border:0;background:rgba(0,0,0,.4);color:#fff;font-size:2rem;line-height:1;cursor:pointer;z-index:3}
+.v-pause{position:absolute;top:calc(24px + env(safe-area-inset-top));left:12px;width:48px;height:48px;border-radius:24px;border:0;background:rgba(0,0,0,.65);color:#fff;display:grid;place-items:center;cursor:pointer;z-index:3}
+.viewer.is-paused .bars i.on::after{animation-play-state:paused}
+.v-pause[aria-pressed="true"] .pause-symbol,.v-pause[aria-pressed="false"] .play-symbol{display:none}
 .v-prev,.v-next{position:absolute;top:0;bottom:0;width:35%;background:transparent;border:0;cursor:pointer;z-index:1}
 .v-prev{left:0}.v-next{right:0;width:65%}
 
@@ -393,6 +394,7 @@ button{font:inherit;color:inherit}
   .reveal{opacity:1!important;transform:none!important}
 }
 </style>
+<link rel="stylesheet" href="./css/privacy.css">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -413,7 +415,7 @@ button{font:inherit;color:inherit}
 
 <header class="topbar" id="header">
   <a class="brand" href="#top" aria-label="Restaurante El Playón, inicio">
-    <img class="logo" src="./assets/img/logo-el-playon.png" alt="">
+    <img class="logo" src="./assets/img/logo-el-playon.png" alt="Logotipo de Restaurante El Playón" data-legal-alt="logoAlt">
     <span class="brand-name">El Playón</span>
   </a>
   <div class="top-actions">
@@ -432,7 +434,7 @@ button{font:inherit;color:inherit}
       <p class="status" id="status" role="status"><span class="dot"></span><span id="statusText">Abierto ahora</span></p>
       <p class="hero-place" data-i18n="heroPlace">La Huerta, Jalisco</p>
       <h1 id="h1" data-i18n="h1">El Playón</h1>
-      <p class="hero-sub" data-i18n="heroSub">Mariscos frescos, recién salidos del mar, servidos frente a la playa. Ven a disfrutar del sazón costero que solo El Playón te puede dar.</p>
+      <p class="hero-sub" data-i18n="heroSub">Platillos de mariscos frente a la playa de Punta Pérula. Consulta nuestro menú y planea tu visita.</p>
       <div class="hero-ctas">
         <a class="btn btn-primary" id="heroWa" href="#" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.3-.5.1-1 .1-1.7-.1a15 15 0 0 1-1.5-.6 12 12 0 0 1-4.6-4.1c-.4-.5-1.1-1.5-1.1-2.9s.7-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .7.5l.9 2.2c.1.2.1.4 0 .6l-.4.6-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.2.5.1.7-.1l.9-1.1c.2-.3.4-.2.7-.1l2.1 1c.3.1.5.2.6.3.1.2.1.8-.1 1.4z"/></svg>
@@ -446,7 +448,7 @@ button{font:inherit;color:inherit}
   <!-- CONFIANZA -->
   <ul class="trust" aria-label="Lo que ofrecemos">
     <li data-i18n="t1">Frente a la playa</li>
-    <li data-i18n="t2">Mariscos frescos</li>
+    <li data-i18n="t2">Platillos de mariscos</li>
     <li data-i18n="t3">Punta Pérula</li>
     <li data-i18n="t4">Sazón costero</li>
   </ul>
@@ -458,13 +460,14 @@ button{font:inherit;color:inherit}
     <div class="menu-tools">
       <label class="search">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-        <input id="q" type="search" placeholder="Buscar: camarón, pulpo…" data-i18n-ph="searchPh" aria-label="Buscar en el menú">
+        <input id="q" type="search" placeholder="Buscar: camarón, pulpo…" data-i18n-ph="searchPh" aria-label="Buscar en el menú" data-legal-label="menuSearch">
       </label>
       <div class="menu-tabs" role="group" aria-label="Secciones del menú" id="menuTabs"></div>
     </div>
 
     <div id="menuList" class="menu-list"></div>
     <p class="empty" id="empty" hidden data-i18n="empty">No encontramos ese platillo. Prueba con otra palabra o pregúntanos por WhatsApp.</p>
+    <p class="reservation-note" data-legal-i18n="priceNote">Precios en MXN. Confirma el importe total y la disponibilidad antes de ordenar. Las reservas no requieren anticipo.</p>
   </section>
 
   <!-- EXPERIENCIA / GALERÍA -->
@@ -474,12 +477,12 @@ button{font:inherit;color:inherit}
       <h2 id="galTitle" data-i18n="galTitle">Una probadita de lo que te espera</h2>
     </div>
     <div class="gal-strip" id="galStrip">
-      <button class="gal-item" data-i="0"><img src="./assets/img/platillo-pescado-frito.jpg" alt="Pescado frito servido con arroz y ensalada" loading="lazy"><span data-i18n="g0">Pescado frito</span></button>
-      <button class="gal-item" data-i="1"><img src="./assets/img/platillo-mariscos-mixtos.jpg" alt="Mariscos mixtos al ajillo con pulpo y camarón" loading="lazy"><span data-i18n="g1">Mariscos al ajillo</span></button>
-      <button class="gal-item" data-i="2"><img src="./assets/img/platillo-camaron-gratinado.jpg" alt="Camarones gratinados con queso" loading="lazy"><span data-i18n="g2">Camarón gratinado</span></button>
-      <button class="gal-item" data-i="3"><img src="./assets/img/platillo-filete-empanizado.jpg" alt="Filetes empanizados con arroz y ensalada" loading="lazy"><span data-i18n="g3">Filete empanizado</span></button>
-      <button class="gal-item" data-i="4"><img src="./assets/img/platillo-jaibas-rellenas.jpg" alt="Jaibas rellenas con arroz y ensalada" loading="lazy"><span data-i18n="g4">Jaibas rellenas</span></button>
-      <button class="gal-item" data-i="5"><img src="./assets/img/platillo-aguachile.jpg" alt="Aguachile de mariscos servido en copa" loading="lazy"><span data-i18n="g5">Aguachile</span></button>
+      <button class="gal-item" data-i="0"><img src="./assets/img/platillo-pescado-frito.jpg" alt="Pescado frito servido con arroz y ensalada" data-legal-alt="g0Alt" loading="lazy"><span data-i18n="g0">Pescado frito</span></button>
+      <button class="gal-item" data-i="1"><img src="./assets/img/platillo-mariscos-mixtos.jpg" alt="Mariscos al ajillo con pulpo y camarón" data-legal-alt="g1Alt" loading="lazy"><span data-i18n="g1">Mariscos al ajillo</span></button>
+      <button class="gal-item" data-i="2"><img src="./assets/img/platillo-camaron-gratinado.jpg" alt="Camarones gratinados con queso" data-legal-alt="g2Alt" loading="lazy"><span data-i18n="g2">Camarón gratinado</span></button>
+      <button class="gal-item" data-i="3"><img src="./assets/img/platillo-filete-empanizado.jpg" alt="Filetes empanizados con arroz y ensalada" data-legal-alt="g3Alt" loading="lazy"><span data-i18n="g3">Filete empanizado</span></button>
+      <button class="gal-item" data-i="4"><img src="./assets/img/platillo-jaibas-rellenas.jpg" alt="Jaibas rellenas con arroz y ensalada" data-legal-alt="g4Alt" loading="lazy"><span data-i18n="g4">Jaibas rellenas</span></button>
+      <button class="gal-item" data-i="5"><img src="./assets/img/platillo-aguachile.jpg" alt="Aguachile de mariscos servido en copa" data-legal-alt="g5Alt" loading="lazy"><span data-i18n="g5">Aguachile</span></button>
     </div>
   </section>
 
@@ -487,24 +490,10 @@ button{font:inherit;color:inherit}
   <section id="historia" class="story wrap" data-bg="#FFFFFF" aria-labelledby="storyTitle">
     <div>
       <p class="eyebrow" data-i18n="storyEyebrow">Sobre nosotros</p>
-      <h2 id="storyTitle" data-i18n="storyTitle">Un restaurante familiar frente al mar</h2>
-      <p data-i18n="story1">Somos un restaurante familiar de mariscos ubicado justo en la playa de Punta Pérula. Preparamos cada platillo con pescados y mariscos frescos del día, en un ambiente relajado y sin prisas, ideal para turistas que visitan la costa de Jalisco y para las familias locales que nos visitan siempre.</p>
+      <h2 id="storyTitle" data-i18n="storyTitle">Un restaurante frente al mar</h2>
+      <p data-i18n="story1">El Playón es un restaurante de mariscos en Punta Pérula, La Huerta, Jalisco. Nuestro menú incluye pescados, camarones, ceviches y otras opciones para tu visita a la costa.</p>
       <p data-i18n="story2">Ven con los pies en la arena, la brisa del mar y buena comida: así se disfruta El Playón.</p>
     </div>
-  </section>
-
-  <!-- RESEÑAS -->
-  <section class="reviews" data-bg="#F4E9DC" aria-labelledby="revTitle">
-    <div class="wrap">
-      <p class="eyebrow" data-i18n="revEyebrow">Lo que dicen nuestros clientes</p>
-      <h2 id="revTitle" data-i18n="revTitle">Reseñas de nuestros comensales</h2>
-    </div>
-    <div class="rev-strip">
-      <blockquote class="rev"><p data-i18n="r1">“El pescado zarandeado estaba increíble, se nota que todo es fresco. Comimos con los pies en la arena y una vista hermosa al mar. ¡Volveremos pronto!”</p><footer>Familia Ramírez</footer></blockquote>
-      <blockquote class="rev"><p data-i18n="r2">“El ceviche El Playón es una explosión de sabores. Ambiente muy relajado y el servicio fue muy amable en todo momento.”</p><footer>Carlos M.</footer></blockquote>
-      <blockquote class="rev"><p data-i18n="r3">“Un lugar perfecto para desconectarse. Los camarones a la diabla tienen justo el picor ideal. Precios justos para la calidad que ofrecen.”</p><footer>Daniela V.</footer></blockquote>
-    </div>
-    <p class="wrap rev-note"><span data-i18n="revNote">Calificación promedio</span>: <span class="rating"><strong data-count="4.2">0.0</strong><span aria-label="5 estrellas">★★★★★</span></span><span data-i18n="revNoteSuffix">, basada en reseñas de nuestros comensales.</span></p>
   </section>
 
   <!-- UBICACIÓN -->
@@ -517,7 +506,11 @@ button{font:inherit;color:inherit}
         <a class="btn btn-primary" href="https://www.google.com/maps/search/?api=1&query=Restaurant+El+Play%C3%B3n+Punta+P%C3%A9rula+La+Huerta+Jalisco+48869" target="_blank" rel="noopener" data-i18n="mapCta">Abrir ubicación en Google Maps</a>
       </div>
       <div class="mini-map">
-        <iframe id="locationMap" src="https://www.google.com/maps?q=Restaurant+El+Play%C3%B3n+Punta+P%C3%A9rula+La+Huerta+Jalisco+48869&amp;output=embed" title="Mapa interactivo de Restaurante El Playón" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        <div class="map-consent" id="mapConsent">
+          <p data-legal-i18n="mapNotice">El mapa está desactivado. Al permitir Google Maps se conectará con Google, que puede recibir tu IP y usar cookies.</p>
+          <button class="privacy-action" type="button" data-consent-action="accept" data-legal-i18n="mapAllow">Permitir Google Maps</button>
+        </div>
+        <iframe id="locationMap" data-src="https://www.google.com/maps?q=Restaurant+El+Play%C3%B3n+Punta+P%C3%A9rula+La+Huerta+Jalisco+48869&amp;output=embed" title="Mapa interactivo de Restaurante El Playón" loading="lazy" referrerpolicy="no-referrer" allowfullscreen hidden></iframe>
       </div>
     </div>
   </section>
@@ -530,10 +523,10 @@ button{font:inherit;color:inherit}
         <h2 id="reservationTitle" data-i18n="reservationTitle">Planea tu visita a El Playón</h2>
         <p data-i18n="reservationIntro">Comparte los datos de tu visita y te atenderemos por WhatsApp para confirmar disponibilidad.</p>
       </div>
-      <form class="reservation-form" id="reservationForm" novalidate>
+      <form class="reservation-form" id="reservationForm" method="post" novalidate>
         <div class="form-field form-field-wide">
           <label for="reservationName" data-i18n="reservationName">Nombre</label>
-          <input id="reservationName" name="name" type="text" autocomplete="name" maxlength="80" required placeholder="Nombre de quien reserva" data-i18n-ph="reservationNamePh">
+          <input id="reservationName" name="name" type="text" autocomplete="given-name" maxlength="80" required placeholder="Nombre de quien reserva" data-i18n-ph="reservationNamePh">
         </div>
         <div class="form-field form-field-wide">
           <label for="reservationContact" data-i18n="reservationContact">Número de contacto</label>
@@ -553,6 +546,11 @@ button{font:inherit;color:inherit}
           <select id="reservationTime" name="time" required aria-describedby="reservationTimeError"></select>
           <p class="field-error" id="reservationTimeError" hidden></p>
         </div>
+        <div class="privacy-consent">
+          <label><input id="reservationConsent" type="checkbox" name="privacyConsent" required data-privacy-consent aria-describedby="reservationPrivacyError reservationPrivacyNote"><span><a href="./privacidad.html" target="_blank" rel="noopener noreferrer" data-privacy-link data-legal-i18n="consent">Acepto la política de privacidad</a></span></label>
+          <p id="reservationPrivacyNote" data-legal-i18n="reservationUse">Tus datos se usan para gestionar la reserva. Al continuar, se abre WhatsApp con los datos del formulario; revisa el mensaje antes de enviarlo.</p>
+          <p id="reservationPrivacyError" class="privacy-error" role="alert" hidden></p>
+        </div>
         <button class="btn btn-primary reservation-submit" type="submit" data-i18n="reservationSubmit">Solicitar reserva por WhatsApp</button>
         <p class="reservation-note" data-i18n="reservationNote">La solicitud queda sujeta a confirmación del restaurante. Horario: 9:00 a.m. a 8:00 p.m.</p>
         <p class="reservation-status" id="reservationStatus" role="status" aria-live="polite"></p>
@@ -566,11 +564,10 @@ button{font:inherit;color:inherit}
       <h2 id="ctTitle" data-i18n="ctTitle">Horarios y contacto</h2>
       <dl class="hours">
         <div><dt data-i18n="hDays">Todos los días</dt><dd>9:00 a.m. – 8:00 p.m.</dd></div>
-        <div><dt data-i18n="hKitchen">Mayor afluencia</dt><dd>Alrededor de las 6:00 p.m.</dd></div>
         <div><dt data-i18n="email">Correo</dt><dd><a href="mailto:rayperula@hotmail.com">rayperula@hotmail.com</a></dd></div>
       </dl>
       <div class="contact-btns">
-        <a class="btn btn-primary" id="ctWa" href="#" target="_blank" rel="noopener">WhatsApp</a>
+        <a class="btn btn-primary" id="ctWa" href="#" target="_blank" rel="noopener" data-legal-i18n="whatsapp">Abrir WhatsApp</a>
         <a class="btn btn-ghost" href="tel:+523151074335" data-i18n="call">Llamar</a>
       </div>
       <p class="contact-address" data-i18n="address">Punta Pérula, La Huerta, Jalisco, C.P. 48869, México</p>
@@ -578,6 +575,24 @@ button{font:inherit;color:inherit}
     </div>
   </section>
 </main>
+<footer class="legal-footer">
+  <div class="legal-footer-inner">
+    <nav aria-label="Información legal" data-legal-label="legalLinks">
+      <a href="./privacidad.html" data-privacy-link data-legal-i18n="privacy">Política de privacidad</a>
+      <a href="./terminos.html" data-privacy-link data-legal-i18n="terms">Términos y condiciones</a>
+      <a href="./cookies.html" data-privacy-link data-legal-i18n="cookies">Política de cookies</a>
+      <a href="./reembolsos.html" data-privacy-link data-legal-i18n="refunds">Política de reembolsos</a>
+      <button type="button" data-consent-settings data-legal-i18n="preferences">Cambiar consentimiento</button>
+    </nav>
+    <dl>
+      <dt data-legal-i18n="tradeName">Nombre comercial</dt><dd>Restaurante El Playón</dd>
+      <dt data-legal-i18n="legalName">Titular o razón social</dt><dd class="legal-pending" data-legal-i18n="pending">Pendiente de confirmar por el titular</dd>
+      <dt data-legal-i18n="taxId">RFC</dt><dd class="legal-pending" data-legal-i18n="pending">Pendiente de confirmar por el titular</dd>
+      <dt data-legal-i18n="address">Dirección física</dt><dd><span>Punta Pérula, La Huerta, Jalisco, C.P. 48869, México.</span> <span class="legal-pending" data-legal-i18n="fullAddressPending">Calle, número y colonia pendientes de confirmar.</span></dd>
+      <dt data-legal-i18n="privacyContact">Contacto de privacidad</dt><dd><a href="mailto:rayperula@hotmail.com">rayperula@hotmail.com</a> · <a href="tel:+523151074335">+52 315 107 4335</a></dd>
+    </dl>
+  </div>
+</footer>
 
 <!-- BARRA INFERIOR FIJA -->
 <nav class="dock" aria-label="Acciones rápidas">
@@ -589,15 +604,16 @@ button{font:inherit;color:inherit}
 <!-- VISOR DE GALERÍA -->
 <div class="viewer" id="viewer" hidden role="dialog" aria-modal="true" aria-label="Galería">
   <div class="bars" id="bars"></div>
-  <img id="vImg" alt="">
+  <img id="vImg" alt="Fotografía de un platillo de El Playón">
   <p class="v-cap" id="vCap"></p>
   <button class="v-close" id="vClose" aria-label="Cerrar">×</button>
+  <button class="v-pause" id="vPause" type="button" aria-label="Pausar presentación" aria-pressed="false"><svg class="pause-symbol" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M6 4h4v16H6zm8 0h4v16h-4z"/></svg><svg class="play-symbol" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="m7 4 14 8-14 8z"/></svg></button>
   <button class="v-prev" id="vPrev" aria-label="Anterior"></button>
   <button class="v-next" id="vNext" aria-label="Siguiente"></button>
 </div>
 
 <div class="ai-chat">
-  <button class="ai-chat-toggle" id="aiChatToggle" type="button" aria-label="Abrir chat de WhatsApp" aria-expanded="false">
+  <button class="ai-chat-toggle" id="aiChatToggle" type="button" aria-label="Abrir asistente del restaurante" aria-expanded="false">
     <svg viewBox="0 0 24 24" width="27" height="27" fill="currentColor" aria-hidden="true"><path d="M12 2a9.8 9.8 0 0 0-8.4 14.9L2.5 21.5l4.8-1.3A9.9 9.9 0 1 0 12 2Zm0 17.9a8 8 0 0 1-4.1-1.1l-.3-.2-2.8.7.8-2.7-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8.9c-.1.2-.3.2-.5.1a6.5 6.5 0 0 1-1.9-1.2 7.2 7.2 0 0 1-1.3-1.7c-.1-.2 0-.4.1-.5l.4-.5.2-.4c.1-.2 0-.4 0-.5L9.6 7c-.1-.3-.3-.3-.5-.3h-.5c-.2 0-.5.1-.7.4-.2.2-.8.8-.8 2s.8 2.4.9 2.6c.1.2 1.7 2.7 4.2 3.7.6.2 1 .4 1.4.5.6.2 1.2.2 1.6.1.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2-.1-.1-.2-.2-.5-.3Z"/></svg>
   </button>
   <section class="ai-chat-window" id="aiChatWindow" aria-label="Asistente virtual" hidden>
@@ -608,13 +624,32 @@ button{font:inherit;color:inherit}
     <div class="ai-chat-messages" id="aiChatMessages" aria-live="polite">
       <div class="ai-chat-msg bot">¡Hola! Soy el asistente de Restaurant El Playón. Pregúntame sobre el menú, precios, horario o ubicación.</div>
     </div>
-    <form class="ai-chat-input-row" id="aiChatForm">
-      <input type="text" id="aiChatInput" placeholder="Escribe tu pregunta..." autocomplete="off" maxlength="300" aria-label="Escribe tu pregunta">
+    <form class="ai-chat-input-row" id="aiChatForm" method="post" novalidate>
+      <div class="privacy-consent">
+        <label><input id="chatConsent" type="checkbox" required data-privacy-consent aria-describedby="chatPrivacyError chatPrivacyNote"><span><a href="./privacidad.html" target="_blank" rel="noopener noreferrer" data-privacy-link data-legal-i18n="consent">Acepto la política de privacidad</a></span></label>
+        <p id="chatPrivacyNote" data-legal-i18n="chatUse">Las preguntas se procesan en este navegador y se borran al recargar. No incluyas datos de salud, bancarios ni identificaciones.</p>
+        <p id="chatPrivacyError" class="privacy-error" role="alert" hidden></p>
+      </div>
+      <input type="text" id="aiChatInput" placeholder="Escribe tu pregunta..." autocomplete="off" maxlength="300" aria-label="Escribe tu pregunta" required>
       <button type="submit" aria-label="Enviar pregunta">➤</button>
     </form>
   </section>
 </div>
 
+<aside class="privacy-banner" id="privacyBanner" aria-labelledby="privacyBannerTitle">
+  <div class="privacy-banner-inner">
+    <div class="privacy-banner-copy">
+      <strong id="privacyBannerTitle" data-legal-i18n="cookieTitle">Tu privacidad</strong>
+      <p data-legal-i18n="cookieText">Guardamos el tema en tu navegador y tu decisión durante 180 días. El mapa de Google solo se carga si aceptas; puede usar cookies y recibir tu IP. No usamos analítica ni publicidad.</p>
+      <p><a href="./cookies.html" data-privacy-link data-legal-i18n="cookies">Política de cookies</a></p>
+    </div>
+    <div class="privacy-actions">
+      <button class="privacy-action" type="button" data-consent-action="reject" data-legal-i18n="reject">Rechazar opcionales</button>
+      <button class="privacy-action" type="button" data-consent-action="accept" data-legal-i18n="accept">Aceptar mapa de Google</button>
+    </div>
+  </div>
+</aside>
+<script src="./js/privacy.js"></script>
 <script>
 (() => {
   const WA = '523151074335'; // WhatsApp real: 315 107 4335
@@ -622,31 +657,26 @@ button{font:inherit;color:inherit}
   const OPEN = 9, CLOSE = 20;
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
-  let lang = 'es';
+  let lang = new URLSearchParams(location.search).get('lang') === 'en' ? 'en' : 'es';
 
   /* ---------- TEXTOS ---------- */
   const T = {
     es: { signatureTitle:'Nuestros platillos principales' },
     en: {
-      skip:'Skip to menu', heroPlace:'La Huerta, Jalisco', h1:'El Playón', heroSub:'Fresh seafood, straight from the sea and served by the beach. Come enjoy the coastal flavor only El Playón can offer.',
-      ctaWa:'Contact us on WhatsApp', ctaMenu:'See menu', t1:'Right on the beach', t2:'Fresh seafood', t3:'Punta Pérula', t4:'Coastal flavor',
+      skip:'Skip to menu', heroPlace:'La Huerta, Jalisco', h1:'El Playón', heroSub:'Seafood dishes by Punta Pérula beach. Browse our menu and plan your visit.',
+      ctaWa:'Contact us on WhatsApp', ctaMenu:'See menu', t1:'Right on the beach', t2:'Seafood dishes', t3:'Punta Pérula', t4:'Coastal flavor',
       menuEyebrow:'Menu', menuTitle:'From the sea to your table', feat1Label:'A taste of our menu', feat2Label:'A taste of our menu', feat3Label:'A taste of our menu', spicy:'Spicy',
       searchPh:'Search: shrimp, octopus…', empty:"We couldn't find that dish. Try another word or ask us on WhatsApp.", signatureTitle:'Our signature dishes',
       galEyebrow:'Our dishes', galTitle:'A taste of what awaits', g0:'Fried fish', g1:'Seafood ajillo', g2:'Gratin shrimp', g3:'Breaded fillet', g4:'Stuffed crab', g5:'Aguachile',
-      storyEyebrow:'About us', storyTitle:'A family restaurant by the sea',
-      story1:'We are a family seafood restaurant right on Punta Pérula beach. We prepare every dish with fresh fish and seafood in a relaxed, easygoing atmosphere for visitors to the Jalisco coast and local families alike.',
+      storyEyebrow:'About us', storyTitle:'A restaurant by the sea',
+      story1:'El Playón is a seafood restaurant in Punta Pérula, La Huerta, Jalisco. Our menu includes fish, shrimp, ceviches and other options for your coastal visit.',
       story2:'Come with your feet in the sand, the sea breeze and good food: that is how you enjoy El Playón.',
-      revEyebrow:'What our guests say', revTitle:'Reviews from our diners',
-      r1:'"The zarandeado fish was incredible, you can tell everything is fresh. We ate with our feet in the sand and a beautiful sea view. We will be back soon!"',
-      r2:'"El Playón ceviche is an explosion of flavor. A very relaxed atmosphere and the service was friendly throughout."',
-      r3:'"A perfect place to unwind. The shrimp a la diabla has just the right kick. Fair prices for the quality."',
-      revNote:'Average rating', revNoteSuffix:', based on reviews from our guests.',
       locEyebrow:'Getting here', locTitle:'Punta Pérula, Jalisco', address:'Punta Pérula, La Huerta, Jalisco, ZIP 48869, Mexico', mapCta:'Open in Google Maps',
       reservationEyebrow:'Reserve your table', reservationTitle:'Plan your visit to El Playón', reservationIntro:'Share your visit details and we will reply on WhatsApp to confirm availability.',
       reservationName:'Name', reservationNamePh:'Name for the reservation', reservationContact:'Contact number', reservationContactPh:'E.g. 315 123 4567',
       reservationGuests:'Number of guests', reservationGuestsPh:'2', reservationDate:'Date', reservationTime:'Time', reservationSubmit:'Request reservation on WhatsApp',
       reservationNote:'Requests are subject to confirmation by the restaurant. Hours: 9:00 a.m. to 8:00 p.m.',
-      ctTitle:'Hours & contact', hDays:'Every day', hKitchen:'Busiest around', email:'Email', call:'Call',
+      ctTitle:'Hours & contact', hDays:'Every day', email:'Email', call:'Call',
       dMenu:'Menu', dContact:'Contact', dGo:'Directions'
     }
   };
@@ -958,6 +988,7 @@ button{font:inherit;color:inherit}
     chatWindow.hidden = !open;
     chatToggle.setAttribute('aria-expanded', String(open));
     if (open) chatInput.focus();
+    else if (!chatToggle.classList.contains('is-hidden')) chatToggle.focus({preventScroll:true});
   }
   function addChatMessage(text, role){
     const message = document.createElement('div');
@@ -981,8 +1012,8 @@ button{font:inherit;color:inherit}
       const {h,m} = nowMx();
       const isOpen = h*60+m >= OPEN*60 && h*60+m < CLOSE*60;
       return lang==='es'
-        ? `Abrimos todos los días de 9:00 a.m. a 8:00 p.m. ${isOpen?'Ahora mismo estamos abiertos.':'En este momento estamos cerrados.'} La mayor afluencia es alrededor de las 6:00 p.m., pero normalmente no hay espera.`
-        : `We are open every day from 9:00 a.m. to 8:00 p.m. ${isOpen?'We are open right now.':'We are currently closed.'} It is busiest around 6:00 p.m., but there is usually no wait.`;
+        ? `Abrimos todos los días de 9:00 a.m. a 8:00 p.m. ${isOpen?'Ahora mismo estamos abiertos.':'En este momento estamos cerrados.'} Consulta la disponibilidad por WhatsApp.`
+        : `We are open every day from 9:00 a.m. to 8:00 p.m. ${isOpen?'We are open right now.':'We are currently closed.'} Ask about availability on WhatsApp.`;
     }
     if (/\b(ubicacion|direccion|donde estan|donde queda|como llegar|localizacion|mapa|location|address|where|directions|map)\b/.test(text)){
       return lang==='es'
@@ -1023,11 +1054,12 @@ button{font:inherit;color:inherit}
     event.preventDefault();
     const text = chatInput.value.trim();
     if (!text) return;
+    if (!window.PlayonPrivacy.validateForm(event.currentTarget)) return;
     chatInput.value = '';
     addChatMessage(text,'user');
     const typing = document.createElement('div');
     typing.className = 'ai-chat-msg bot typing';
-    typing.setAttribute('aria-label','Escribiendo');
+    typing.setAttribute('aria-label',lang==='es'?'Escribiendo':'Typing');
     typing.innerHTML = '<span></span><span></span><span></span>';
     chatMessages.appendChild(typing);
     chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -1134,6 +1166,7 @@ button{font:inherit;color:inherit}
       (missingDate ? reservationDate : reservationTime).focus();
       return;
     }
+    if (!window.PlayonPrivacy.validateForm(reservationForm)) return;
     if (!reservationForm.checkValidity()) {
       reservationForm.reportValidity();
       return;
@@ -1142,8 +1175,8 @@ button{font:inherit;color:inherit}
     const visitDate = reservationDate.selectedOptions[0].textContent;
     const visitTime = reservationTime.selectedOptions[0].textContent;
     const message = lang==='es'
-      ? `Hola El Playón, quisiera solicitar una reserva.\n\nNombre: ${fields.get('name')}\nContacto: ${fields.get('contact')}\nPersonas: ${fields.get('guests')}\nFecha: ${visitDate}\nHora: ${visitTime}\n\n¿Me pueden confirmar disponibilidad?`
-      : `Hi El Playón, I would like to request a reservation.\n\nName: ${fields.get('name')}\nContact: ${fields.get('contact')}\nGuests: ${fields.get('guests')}\nDate: ${visitDate}\nTime: ${visitTime}\n\nCould you please confirm availability?`;
+      ? `Hola El Playón, quisiera solicitar una reserva.\n\nNombre: ${fields.get('name')}\nContacto: ${fields.get('contact')}\nPersonas: ${fields.get('guests')}\nFecha: ${visitDate}\nHora: ${visitTime}\n\nAcepté el aviso de privacidad del sitio (versión 2026-10-04).\n¿Me pueden confirmar disponibilidad?`
+      : `Hi El Playón, I would like to request a reservation.\n\nName: ${fields.get('name')}\nContact: ${fields.get('contact')}\nGuests: ${fields.get('guests')}\nDate: ${visitDate}\nTime: ${visitTime}\n\nI accepted the website privacy notice (version 2026-10-04).\nCould you please confirm availability?`;
     const reservationLink = waLink(message);
     reservationStatus.textContent = lang==='es' ? 'Abriendo WhatsApp para enviar tu solicitud…' : 'Opening WhatsApp to send your request…';
     const popup = window.open('about:blank','_blank');
@@ -1159,9 +1192,9 @@ button{font:inherit;color:inherit}
     const reservationVisible = entries.some(entry => entry.isIntersecting);
     chatToggle.classList.toggle('is-hidden',reservationVisible);
     chatToggle.setAttribute('aria-hidden',String(reservationVisible));
-    chatToggle.tabIndex = reservationVisible ? -1 : 0;
+    chatToggle.tabIndex = reservationVisible || document.body.classList.contains('consent-pending') ? -1 : 0;
     if (reservationVisible && !chatWindow.hidden) setChatOpen(false);
-  }, { threshold: 0.18 });
+  }, { threshold: 0 });
   reservationObserver.observe($('#reservas'));
 
   /* ---------- ESTADO ABIERTO/CERRADO ---------- */
@@ -1180,41 +1213,65 @@ button{font:inherit;color:inherit}
   }
   /* ---------- GALERÍA TIPO HISTORIA ---------- */
   const items = $$('.gal-item'), viewer = $('#viewer'), vImg = $('#vImg');
-  let gi = 0, timer;
+  let gi = 0, timer, galleryPaused = false;
+  function updatePlaybackLabel(){
+    const label = lang==='es' ? (galleryPaused?'Reanudar presentación':'Pausar presentación') : (galleryPaused?'Resume slideshow':'Pause slideshow');
+    $('#vPause').setAttribute('aria-label',label);
+    $('#vPause').title = label;
+    $('#vPause').setAttribute('aria-pressed',String(galleryPaused));
+    viewer.classList.toggle('is-paused',galleryPaused);
+  }
+  function schedulePhoto(){
+    clearTimeout(timer);
+    if (!galleryPaused) timer = setTimeout(() => gi === items.length-1 ? close() : show(gi+1),5000);
+  }
   function show(i){
     gi = (i + items.length) % items.length;
     const img = $('img', items[gi]);
     vImg.src = img.src; vImg.alt = img.alt;
     $('#vCap').textContent = $('span', items[gi]).textContent;
     $('#bars').innerHTML = items.map((_,k)=>`<i class="${k<gi?'done':k===gi?'on':''}"></i>`).join('');
-    clearTimeout(timer);
-    timer = setTimeout(() => gi === items.length-1 ? close() : show(gi+1), 5000);
+    schedulePhoto();
   }
-  function open(i){ viewer.hidden = false; document.body.style.overflow='hidden'; show(i); $('#vClose').focus(); }
+  function open(i){ galleryPaused = matchMedia('(prefers-reduced-motion: reduce)').matches; updatePlaybackLabel(); viewer.hidden = false; document.body.style.overflow='hidden'; show(i); $('#vClose').focus(); }
   function close(){ viewer.hidden = true; document.body.style.overflow=''; clearTimeout(timer); items[gi].focus(); }
   items.forEach((b,i) => b.addEventListener('click', () => open(i)));
   $('#vNext').onclick = () => show(gi+1);
   $('#vPrev').onclick = () => show(gi-1);
   $('#vClose').onclick = close;
+  $('#vPause').onclick = () => { galleryPaused = !galleryPaused; updatePlaybackLabel(); schedulePhoto(); };
   document.addEventListener('keydown', e => {
     if (viewer.hidden) return;
     if (e.key==='Escape') close(); if (e.key==='ArrowRight') show(gi+1); if (e.key==='ArrowLeft') show(gi-1);
+    if (e.key==='Tab') {
+      const controls = [$('#vClose'),$('#vPause'),$('#vPrev'),$('#vNext')];
+      const first = controls[0], last = controls[controls.length-1];
+      if (e.shiftKey && document.activeElement===first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement===last) { e.preventDefault(); first.focus(); }
+    }
   });
 
   /* ---------- IDIOMA / TEMA ---------- */
   function applyLang(){
     document.documentElement.lang = lang;
+    window.PlayonPrivacy.setLanguage(lang);
     $$('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
     $$('[data-i18n-ph]').forEach(el => { el.placeholder = t(el.dataset.i18nPh); });
     $('#langBtn').textContent = lang==='es' ? 'EN' : 'ES';
     $('#langBtn').setAttribute('aria-label', lang==='es' ? 'Change language to English' : 'Cambiar idioma a español');
-    $('#aiChatToggle').setAttribute('aria-label',lang==='es'?'Abrir chat de WhatsApp':'Open WhatsApp chat');
+    $('#aiChatToggle').setAttribute('aria-label',lang==='es'?'Abrir asistente del restaurante':'Open restaurant assistant');
     $('#aiChatWindow').setAttribute('aria-label',lang==='es'?'Asistente virtual':'Virtual assistant');
     $('#aiChatClose').setAttribute('aria-label',lang==='es'?'Cerrar asistente':'Close assistant');
     $('#aiChatForm button').setAttribute('aria-label',lang==='es'?'Enviar pregunta':'Send question');
     $('#aiChatInput').setAttribute('aria-label',lang==='es'?'Escribe tu pregunta':'Type your question');
     $('#aiChatInput').placeholder = lang==='es'?'Escribe tu pregunta...':'Type your question...';
     $('#locationMap').title = lang==='es'?'Mapa interactivo de Restaurante El Playón':'Interactive map of El Playón Restaurant';
+    viewer.setAttribute('aria-label',lang==='es'?'Galería de platillos':'Dish photo gallery');
+    $('#vClose').setAttribute('aria-label',lang==='es'?'Cerrar':'Close');
+    $('#vPrev').setAttribute('aria-label',lang==='es'?'Fotografía anterior':'Previous photo');
+    $('#vNext').setAttribute('aria-label',lang==='es'?'Fotografía siguiente':'Next photo');
+    updatePlaybackLabel();
+    if (!viewer.hidden) vImg.alt = $('img',items[gi]).alt;
     reservationStatus.textContent = '';
     clearReservationError(reservationDate,reservationDateError);
     clearReservationError(reservationTime,reservationTimeError);
@@ -1273,6 +1330,7 @@ button{font:inherit;color:inherit}
   addEventListener('scroll', onScroll, {passive:true}); onScroll();
 
   applyLang();
+  if (viewer.hidden) $('#vImg').alt = lang==='es'?'Fotografía de un platillo de El Playón':'Photograph of an El Playón dish';
 
   setInterval(updateStatus, 60000);
 })();
@@ -1289,7 +1347,7 @@ button{font:inherit;color:inherit}
     const intro = document.createElement('div');
     intro.className = 'brand-intro';
     intro.setAttribute('aria-hidden','true');
-    intro.innerHTML = '<img src="./assets/img/logo-el-playon.png" alt=""><span>El Playón</span>';
+    intro.innerHTML = '<img src="./assets/img/logo-el-playon.png" alt="El Playón"><span>El Playón</span>';
     document.body.appendChild(intro);
     let introFinished = false;
     const finishIntro = () => {
@@ -1397,26 +1455,6 @@ button{font:inherit;color:inherit}
     });
   });
 
-  /* ---------- CONTEO DE CALIFICACIÓN ---------- */
-  const rating = document.querySelector('[data-count]');
-  if (rating) {
-    const target = Number(rating.dataset.count);
-    const duration = 900;
-    let start;
-    const count = now => {
-      if (start === undefined) start = now;
-      const progress = Math.min((now-start)/duration,1);
-      rating.textContent = (target*progress).toFixed(1);
-      if (progress<1) requestAnimationFrame(count);
-    };
-    const ratingObserver = new IntersectionObserver(entries => {
-      if (!entries.some(entry => entry.isIntersecting)) return;
-      ratingObserver.disconnect();
-      if (prefersReduced) rating.textContent = target.toFixed(1);
-      else requestAnimationFrame(count);
-    },{threshold:.6});
-    ratingObserver.observe(rating);
-  }
 })();
 
 </script>
